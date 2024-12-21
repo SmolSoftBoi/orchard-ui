@@ -8,6 +8,7 @@ import {
 import { Hass } from '../hass';
 import { ClimateBadgeStrategy } from './climate-badge';
 import { WeatherBadgeStrategy } from './weather-badge';
+import { LightBadgeStrategy } from './light-badge';
 
 type HomeViewStrategyConfig = {};
 
@@ -32,6 +33,7 @@ export class HomeViewStrategy extends ReactiveElement {
 
     const weatherBadge = await WeatherBadgeStrategy.generate({}, hass);
     const climateBadge = await ClimateBadgeStrategy.generate({}, hass);
+    const lightBadge = await LightBadgeStrategy.generate({}, hass);
 
     if (weatherBadge) {
       badges.push(weatherBadge);
@@ -39,6 +41,10 @@ export class HomeViewStrategy extends ReactiveElement {
 
     if (climateBadge) {
       badges.push(climateBadge);
+    }
+
+    if (lightBadge) {
+      badges.push(lightBadge);
     }
 
     return badges;

@@ -24,8 +24,6 @@ export class WeatherBadgeStrategy {
       entity.entity_id.startsWith('weather.'),
     );
 
-    console.log(weatherEntities);
-
     const appleWeatherEntity = weatherEntities.find(
       (entity) => entity.platform === 'weatherkit',
     );
