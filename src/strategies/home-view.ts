@@ -6,6 +6,8 @@ import {
   LovelaceViewConfig,
 } from '../lovelace';
 import { Hass } from '../hass';
+import { ClimateBadgeStrategy } from './climate-badge';
+import { WeatherBadgeStrategy } from './weather-badge';
 
 type HomeViewStrategyConfig = {};
 
@@ -26,7 +28,20 @@ export class HomeViewStrategy extends ReactiveElement {
     config: HomeViewStrategyConfig,
     hass: Hass,
   ): Promise<LovelaceBadgeConfig[]> {
-    return [];
+    const badges: LovelaceBadgeConfig[] = [];
+
+    const weatherBadge = await WeatherBadgeStrategy.generate({}, hass);
+    const climateBadge = await ClimateBadgeStrategy.generate({}, hass);
+
+    if (weatherBadge) {
+      badges.push(weatherBadge);
+    }
+
+    if (climateBadge) {
+      badges.push(climateBadge);
+    }
+
+    return badges;
   }
 
   static async generateSections(
