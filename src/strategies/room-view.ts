@@ -1,6 +1,10 @@
 import { ReactiveElement } from 'lit';
 import { CUSTOM_ELEMENT_NAME } from '../config';
-import { LovelaceViewConfig } from '../lovelace';
+import {
+  LovelaceBadgeConfig,
+  LovelaceSectionRawConfig,
+  LovelaceViewConfig,
+} from '../lovelace';
 import { Hass } from '../hass';
 
 type RoomViewStrategyConfig = {
@@ -13,11 +17,25 @@ export class RoomViewStrategy extends ReactiveElement {
     hass: Hass,
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
-      badges: [],
-      cards: [],
+      badges: await this.generateBadges(config, hass),
+      sections: await this.generateSections(config, hass),
     };
 
     return view;
+  }
+
+  static async generateBadges(
+    config: RoomViewStrategyConfig,
+    hass: Hass,
+  ): Promise<LovelaceBadgeConfig[]> {
+    return [];
+  }
+
+  static async generateSections(
+    config: RoomViewStrategyConfig,
+    hass: Hass,
+  ): Promise<LovelaceSectionRawConfig[]> {
+    return [];
   }
 }
 
