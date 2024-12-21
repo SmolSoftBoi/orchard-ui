@@ -1,0 +1,17 @@
+{
+  "browserslistEnv": "modern",
+  "sourceMaps": true,
+  "assumptions": {
+    "privateFieldsAsProperties": true,
+    "setPublicClassFields": true,
+    "setSpreadProperties": true
+  },
+  "plugins": [
+    [
+      "@babel/plugin-proposal-decorators",
+      { "version": "2018-09", "decoratorsBeforeExport": true }
+    ],
+    "@babel/plugin-transform-runtime"
+  ],
+  "presets": [["@babel/preset-env"], "@babel/preset-typescript"]
+}
