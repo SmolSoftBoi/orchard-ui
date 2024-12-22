@@ -6,6 +6,7 @@ import {
   LovelaceViewConfig,
 } from '../lovelace';
 import { Hass } from '../hass';
+import { AutomationSectionStrategy } from './automations-section';
 
 type AutomationsViewStrategyConfig = {};
 
@@ -33,7 +34,17 @@ export class AutomationsViewStrategy extends ReactiveElement {
     config: AutomationsViewStrategyConfig,
     hass: Hass,
   ): Promise<LovelaceSectionRawConfig[]> {
-    return [];
+    const sections: LovelaceSectionRawConfig = [
+      await AutomationSectionStrategy.generate({}, hass),
+    ];
+
+    for (const floor of Object.values(hass.floors)) {
+      sections.push(
+        await AutomationSectionStrategy.generate({ floor: floor }, hass),
+      );
+    }
+
+    return sections;
   }
 }
 

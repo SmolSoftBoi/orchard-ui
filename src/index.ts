@@ -1,5 +1,6 @@
 import { HomeDashboardStrategy } from './strategies/home-dashboard';
 import { HomeViewStrategy } from './strategies/home-view';
+import { AutomationsViewStrategy } from './strategies/automations-view';
 import { ClimateViewStrategy } from './strategies/climate-view';
 import { LightsViewStrategy } from './strategies/lights-view';
 import { SecurityViewStrategy } from './strategies/security-view';
@@ -11,6 +12,7 @@ import { RoomViewStrategy } from './strategies/room-view';
 export {
   HomeDashboardStrategy,
   HomeViewStrategy,
+  AutomationsViewStrategy,
   ClimateViewStrategy,
   LightsViewStrategy,
   SecurityViewStrategy,

@@ -115,6 +115,16 @@ export interface HassDeviceRegistryEntry extends HassRegistryEntry {
   primary_config_entry: string | null;
 }
 
+export interface HassAreaRegistryEntry extends RegistryEntry {
+  area_id: string;
+  floor_id: string | null;
+  name: string;
+  picture: string | null;
+  icon: string | null;
+  labels: string[];
+  aliases: string[];
+}
+
 export interface HassFloorRegistryEntry extends RegistryEntry {
   floor_id: string;
   name: string;

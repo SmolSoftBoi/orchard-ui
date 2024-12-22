@@ -10,6 +10,30 @@ export class HomeDashboardStrategy extends ReactiveElement {
     config: HomeDashboardStrategyConfig,
     hass: Hass,
   ): Promise<LovelaceConfig> {
+    const floors = Object.keys(hass.floors);
+    let automationFloorsLength = 0;
+
+    for (const floor of Object.values(hass.floors)) {
+      const floorAreas = Object.values(hass.areas).filter(
+        (area) => area.floor_id === floor.floor_id,
+      );
+
+      for (const area of floorAreas) {
+        const areaAutomations = Object.values(hass.entities).filter(
+          (entity) =>
+            entity.entity_id.startsWith('automation.') &&
+            entity.area_id === area.area_id,
+        );
+
+        if (areaAutomations.length > 0) {
+          automationFloorsLength++;
+          break;
+        }
+      }
+    }
+
+    console.log(automationFloorsLength);
+
     return {
       views: [
         {
@@ -17,7 +41,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
           title: 'Home',
           path: 'home',
           icon: 'mdi:home',
-          max_columns: Math.max(Object.keys(hass.floors).length, 1),
+          max_columns: Math.max(floors.length, 1),
           strategy: {
             type: `custom:${CUSTOM_ELEMENT_NAME}-home`,
           },
@@ -26,6 +50,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
           type: 'sections',
           title: 'Automations',
           icon: 'mdi:alarm',
+          max_columns: Math.max(automationFloorsLength, 1),
           strategy: {
             type: `custom:${CUSTOM_ELEMENT_NAME}-automations`,
           },
