@@ -27,7 +27,7 @@ export class ClimateBadgeStrategy {
     config: ClimateBadgeStrategyConfig,
     hass: Hass
   ): Promise<LovelaceBadgeConfig | undefined> {
-    const entity = this.entity(config, hass);
+    const entity = this.entity({ floor: config.floor }, hass);
 
     if (!entity) {
       return;
