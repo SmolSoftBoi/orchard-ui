@@ -1,5 +1,6 @@
 import { Hass, HassFloorRegistryEntry } from '../hass';
 import { LovelaceBadgeConfig, LovelaceCardConfig } from '../lovelace';
+import { ClimateBadgeStrategy } from './climate-badge';
 
 export type FloorHeadingCardStretegyConfig = {
   floor: HassFloorRegistryEntry;
@@ -30,6 +31,16 @@ export class FloorHeadingCardStrategy {
     config: FloorHeadingCardsStrategyBadgesConfig,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
-    return [];
+    const badges: LovelaceBadgeConfig[] = [];
+
+    const [climateBadge] = await Promise.all([
+      ClimateBadgeStrategy.generate({ floor: config.floor }, hass),
+    ]);
+
+    if (climateBadge) {
+      badges.push(climateBadge);
+    }
+
+    return badges;
   }
 }
