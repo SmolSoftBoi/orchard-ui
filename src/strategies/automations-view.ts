@@ -8,11 +8,9 @@ import {
 import { Hass } from '../hass';
 import { AutomationSectionStrategy } from './automations-section';
 
-type AutomationsViewStrategyConfig = {};
-
 export class AutomationsViewStrategy extends ReactiveElement {
   static async generate(
-    config: AutomationsViewStrategyConfig,
+    config: object,
     hass: Hass,
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
@@ -24,14 +22,14 @@ export class AutomationsViewStrategy extends ReactiveElement {
   }
 
   static async generateBadges(
-    config: AutomationsViewStrategyConfig,
+    config: object,
     hass: Hass,
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
-    config: AutomationsViewStrategyConfig,
+    config: object,
     hass: Hass,
   ): Promise<LovelaceSectionRawConfig[]> {
     const sections: LovelaceSectionRawConfig = [
@@ -45,6 +43,31 @@ export class AutomationsViewStrategy extends ReactiveElement {
     }
 
     return sections;
+  }
+
+  static maxColumns(config: object, hass: Hass): number {
+    let maxColumns = 1;
+
+    for (const floor of Object.values(hass.floors)) {
+      const floorAreas = Object.values(hass.areas).filter(
+        (area) => area.floor_id === floor.floor_id,
+      );
+
+      for (const area of floorAreas) {
+        const areaAutomations = Object.values(hass.entities).filter(
+          (entity) =>
+            entity.entity_id.startsWith('automation.') &&
+            entity.area_id === area.area_id,
+        );
+
+        if (areaAutomations.length > 0) {
+          maxColumns = maxColumns++;
+          break;
+        }
+      }
+    }
+
+    return maxColumns;
   }
 }
 

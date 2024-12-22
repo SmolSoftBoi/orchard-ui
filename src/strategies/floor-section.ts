@@ -16,14 +16,14 @@ export class FloorSectionStrategy {
 
     const sections: LovelaceSectionRawConfig = {
       type: 'grid',
-      cards: [],
+      cards: await this.generateCards({}, hass),
     };
 
     return sections;
   }
 
   static async generateCards(
-    config: FloorSectionStrategyConfig,
+    config: object,
     hass: Hass,
   ): Promise<LovelaceCardConfig[]> {
     const cards: LovelaceCardConfig[] = [];

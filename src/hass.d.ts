@@ -1,4 +1,8 @@
-import type { HassConfig, HassEntities, HassServices } from 'home-assistant-js-websocket';
+import type {
+  HassConfig,
+  HassEntities,
+  HassServices,
+} from 'home-assistant-js-websocket';
 
 export interface Hass {
   auth: Auth & { external?: HassExternalMessaging };
@@ -49,17 +53,17 @@ export interface Hass {
   callApi<T>(
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     path: string,
-    parameters?: Record<string, any>,
+    parameters?: Record<string, unknown>,
     headers?: Record<string, string>,
   ): Promise<T>;
   callApiRaw( // introduced in 2024.11
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     path: string,
-    parameters?: Record<string, any>,
+    parameters?: Record<string, unknown>,
     headers?: Record<string, string>,
     signal?: AbortSignal,
   ): Promise<Response>;
-  fetchWithAuth(path: string, init?: Record<string, any>): Promise<Response>;
+  fetchWithAuth(path: string, init?: Record<string, unknown>): Promise<Response>;
   sendWS(msg: MessageBase): void;
   callWS<T>(msg: MessageBase): Promise<T>;
   loadBackendTranslation(
@@ -74,7 +78,7 @@ export interface Hass {
   formatEntityAttributeValue(
     stateObj: HassEntity,
     attribute: string,
-    value?: any,
+    value?: unknown,
   ): string;
   formatEntityAttributeName(stateObj: HassEntity, attribute: string): string;
 }

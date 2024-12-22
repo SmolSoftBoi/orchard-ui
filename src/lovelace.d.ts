@@ -16,7 +16,7 @@ export interface LovelaceViewConfig extends LovelaceBaseViewConfig {
 
 export interface LovelaceBadgeConfig {
   type: string;
-  [key: string]: any;
+  [key: string]: unknown;
   visibility?: Condition[];
 }
 
@@ -27,11 +27,11 @@ export type LovelaceSectionRawConfig =
 export interface LovelaceCardConfig {
   index?: number;
   view_index?: number;
-  view_layout?: any;
+  view_layout?: unknown;
   /** @deprecated Use `grid_options` instead */
   layout_options?: LovelaceLayoutOptions;
   grid_options?: LovelaceGridOptions;
   type: string;
-  [key: string]: any;
+  [key: string]: unknown;
   visibility?: Condition[];
 }

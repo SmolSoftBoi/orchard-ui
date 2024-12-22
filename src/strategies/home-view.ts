@@ -14,31 +14,43 @@ import { SpeakersTvsBadgeStrategy } from './speakers-tvs-badge';
 import { FloorSectionStrategy } from './floor-section';
 import { EnergyBadgeStrategy } from './energy-badge';
 
-type HomeViewStrategyConfig = {};
-
 export class HomeViewStrategy extends ReactiveElement {
   static async generate(
-    config: HomeViewStrategyConfig,
+    config: object,
     hass: Hass,
   ): Promise<LovelaceViewConfig> {
+    const [badges, sections] = await Promise.all([
+      this.generateBadges(config, hass),
+      this.generateSections(config, hass),
+    ]);
+
     return {
-      badges: await this.generateBadges(config, hass),
-      sections: await this.generateSections(config, hass),
+      badges,
+      sections,
     };
   }
 
   static async generateBadges(
-    config: HomeViewStrategyConfig,
+    config: object,
     hass: Hass,
   ): Promise<LovelaceBadgeConfig[]> {
     const badges: LovelaceBadgeConfig[] = [];
 
-    const weatherBadge = await WeatherBadgeStrategy.generate({}, hass);
-    const climateBadge = await ClimateBadgeStrategy.generate({}, hass);
-    const lightsBadge = await LightsBadgeStrategy.generate({}, hass);
-    const securtyBadge = await SecurityBadgeStrategy.generate({}, hass);
-    const speakersTvsBadge = await SpeakersTvsBadgeStrategy.generate({}, hass);
-    const energyBadge = await EnergyBadgeStrategy.generate({}, hass);
+    const [
+      weatherBadge,
+      climateBadge,
+      lightsBadge,
+      securtyBadge,
+      speakersTvsBadge,
+      energyBadge,
+    ] = await Promise.all([
+      WeatherBadgeStrategy.generate({}, hass),
+      ClimateBadgeStrategy.generate({}, hass),
+      LightsBadgeStrategy.generate({}, hass),
+      SecurityBadgeStrategy.generate({}, hass),
+      SpeakersTvsBadgeStrategy.generate({}, hass),
+      EnergyBadgeStrategy.generate({}, hass),
+    ]);
 
     if (weatherBadge) {
       badges.push(weatherBadge);
@@ -68,7 +80,7 @@ export class HomeViewStrategy extends ReactiveElement {
   }
 
   static async generateSections(
-    config: HomeViewStrategyConfig,
+    config: object,
     hass: Hass,
   ): Promise<LovelaceSectionRawConfig[]> {
     const sections: LovelaceSectionRawConfig[] = [];
@@ -85,6 +97,10 @@ export class HomeViewStrategy extends ReactiveElement {
     }
 
     return sections;
+  }
+
+  static maxColumns(config: object, hass: Hass): number {
+    return Math.max(Object.keys(hass.floors).length, 1);
   }
 }
 
