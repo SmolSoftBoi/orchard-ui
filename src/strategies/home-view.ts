@@ -8,7 +8,9 @@ import {
 import { Hass } from '../hass';
 import { ClimateBadgeStrategy } from './climate-badge';
 import { WeatherBadgeStrategy } from './weather-badge';
-import { LightBadgeStrategy } from './light-badge';
+import { LightsBadgeStrategy } from './lights-badge';
+import { SecurityBadgeStrategy } from './security-badge';
+import { SpeakersTvsBadgeStrategy } from './speakers-tvs-badge';
 
 type HomeViewStrategyConfig = {};
 
@@ -33,7 +35,9 @@ export class HomeViewStrategy extends ReactiveElement {
 
     const weatherBadge = await WeatherBadgeStrategy.generate({}, hass);
     const climateBadge = await ClimateBadgeStrategy.generate({}, hass);
-    const lightBadge = await LightBadgeStrategy.generate({}, hass);
+    const lightsBadge = await LightsBadgeStrategy.generate({}, hass);
+    const securtyBadge = await SecurityBadgeStrategy.generate({}, hass);
+    const speakersTvsBadge = await SpeakersTvsBadgeStrategy.generate({}, hass);
 
     if (weatherBadge) {
       badges.push(weatherBadge);
@@ -43,8 +47,16 @@ export class HomeViewStrategy extends ReactiveElement {
       badges.push(climateBadge);
     }
 
-    if (lightBadge) {
-      badges.push(lightBadge);
+    if (lightsBadge) {
+      badges.push(lightsBadge);
+    }
+
+    if (securtyBadge) {
+      badges.push(securtyBadge);
+    }
+
+    if (speakersTvsBadge) {
+      badges.push(speakersTvsBadge);
     }
 
     return badges;
@@ -54,7 +66,9 @@ export class HomeViewStrategy extends ReactiveElement {
     config: HomeViewStrategyConfig,
     hass: Hass,
   ): Promise<LovelaceSectionRawConfig[]> {
-    return [];
+    const sections: LovelaceSectionRawConfig[] = [];
+
+    return sections;
   }
 }
 
