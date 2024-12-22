@@ -16,6 +16,10 @@ export class FloorViewStrategy extends ReactiveElement {
     config: FloorViewStrategyConfig,
     hass: Hass,
   ): Promise<LovelaceViewConfig> {
+    if (!config.floor_id) {
+      return {};
+    }
+
     const view: LovelaceViewConfig = {
       badges: await this.generateBadges(config, hass),
       sections: await this.generateSections(config, hass),

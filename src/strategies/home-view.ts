@@ -11,6 +11,8 @@ import { WeatherBadgeStrategy } from './weather-badge';
 import { LightsBadgeStrategy } from './lights-badge';
 import { SecurityBadgeStrategy } from './security-badge';
 import { SpeakersTvsBadgeStrategy } from './speakers-tvs-badge';
+import { FloorSectionStrategy } from './floor-section';
+import { EnergyBadgeStrategy } from './energy-badge';
 
 type HomeViewStrategyConfig = {};
 
@@ -19,12 +21,10 @@ export class HomeViewStrategy extends ReactiveElement {
     config: HomeViewStrategyConfig,
     hass: Hass,
   ): Promise<LovelaceViewConfig> {
-    const view: LovelaceViewConfig = {
+    return {
       badges: await this.generateBadges(config, hass),
       sections: await this.generateSections(config, hass),
     };
-
-    return view;
   }
 
   static async generateBadges(
@@ -38,6 +38,7 @@ export class HomeViewStrategy extends ReactiveElement {
     const lightsBadge = await LightsBadgeStrategy.generate({}, hass);
     const securtyBadge = await SecurityBadgeStrategy.generate({}, hass);
     const speakersTvsBadge = await SpeakersTvsBadgeStrategy.generate({}, hass);
+    const energyBadge = await EnergyBadgeStrategy.generate({}, hass);
 
     if (weatherBadge) {
       badges.push(weatherBadge);
@@ -59,6 +60,10 @@ export class HomeViewStrategy extends ReactiveElement {
       badges.push(speakersTvsBadge);
     }
 
+    if (energyBadge) {
+      badges.push(energyBadge);
+    }
+
     return badges;
   }
 
@@ -67,6 +72,17 @@ export class HomeViewStrategy extends ReactiveElement {
     hass: Hass,
   ): Promise<LovelaceSectionRawConfig[]> {
     const sections: LovelaceSectionRawConfig[] = [];
+
+    for (const floor_id of Object.keys(hass.floors)) {
+      const section = await FloorSectionStrategy.generate(
+        { floor_id: floor_id },
+        hass,
+      );
+
+      if (section) {
+        sections.push(section);
+      }
+    }
 
     return sections;
   }

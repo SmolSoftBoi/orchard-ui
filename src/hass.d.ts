@@ -114,3 +114,11 @@ export interface HassDeviceRegistryEntry extends HassRegistryEntry {
   configuration_url: string | null;
   primary_config_entry: string | null;
 }
+
+export interface HassFloorRegistryEntry extends RegistryEntry {
+  floor_id: string;
+  name: string;
+  level: number | null;
+  icon: string | null;
+  aliases: string[];
+}
