@@ -1,5 +1,6 @@
 import { Hass, HassFloorRegistryEntry } from '../hass';
 import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../lovelace';
+import { AutomationCardStrategy } from './automation-card';
 
 export type AutomationSectionStrategyConfig = {
   floor?: HassFloorRegistryEntry;
@@ -25,9 +26,17 @@ export class AutomationSectionStrategy {
   ): Promise<LovelaceCardConfig[]> {
     const cards: LovelaceCardConfig[] = [];
 
-    const automationEntities = Object.values(hass.entities).filter((entity) =>
-      entity.entity_id.startsWith('automation.'),
-    );
+    const automationEntities = Object.values(hass.entities)
+      .filter((entity) => entity.entity_id.startsWith('automation.'))
+      .sort(
+        (entityA, entityB) =>
+          Date.parse(
+            hass.states[entityB.entity_id].attributes.last_triggered as string,
+          ) -
+          Date.parse(
+            hass.states[entityA.entity_id].attributes.last_triggered as string,
+          ),
+      );
 
     if (config.floor) {
       cards.push({
@@ -58,13 +67,9 @@ export class AutomationSectionStrategy {
         });
 
         for (const automation of areaAutomations) {
-          cards.push({
-            type: 'tile',
-            entity: automation.entity_id,
-            grid_options: {
-              columns: 12,
-            },
-          });
+          cards.push(
+            await AutomationCardStrategy.generate({ entity: automation }, hass),
+          );
         }
       }
 
@@ -83,13 +88,9 @@ export class AutomationSectionStrategy {
     );
 
     for (const automation of noAreaAutomations) {
-      cards.push({
-        type: 'tile',
-        entity: automation.entity_id,
-        grid_options: {
-          columns: 12,
-        },
-      });
+      cards.push(
+        await AutomationCardStrategy.generate({ entity: automation }, hass),
+      );
     }
 
     return cards;
