@@ -20,7 +20,7 @@ type FloorDashboardStrategyConfigArea = {
 export class FloorDashboardStrategy extends ReactiveElement {
   static async generate(
     config: FloorDashboardStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceConfig> {
     if (!config.floor_id) {
       return {
@@ -39,14 +39,14 @@ export class FloorDashboardStrategy extends ReactiveElement {
     return {
       views: await this.generateViews(
         { floor: floor, areas: config.areas },
-        hass,
+        hass
       ),
     };
   }
 
   static async generateViews(
     config: FloorDashboardStrategyViewsConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceViewRawConfig[]> {
     const floor = config.floor;
 
@@ -65,12 +65,12 @@ export class FloorDashboardStrategy extends ReactiveElement {
     ];
 
     let areas = Object.values(hass.areas).filter(
-      (area) => area.floor_id === floor.floor_id,
+      (area) => area.floor_id === floor.floor_id
     );
 
     if (config.areas && config.areas.length > 0) {
       areas = areas.filter((area) =>
-        config.areas?.some((configArea) => configArea.area_id === area.area_id),
+        config.areas?.some((configArea) => configArea.area_id === area.area_id)
       );
     }
 
@@ -92,5 +92,5 @@ export class FloorDashboardStrategy extends ReactiveElement {
 
 customElements.define(
   `ll-strategy-${CUSTOM_ELEMENT_NAME}-floor`,
-  FloorDashboardStrategy,
+  FloorDashboardStrategy
 );

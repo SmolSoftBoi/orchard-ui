@@ -9,7 +9,7 @@ export type AutomationSectionStrategyConfig = {
 export class AutomationSectionStrategy {
   static async generate(
     config: AutomationSectionStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceSectionRawConfig> {
     return {
       type: 'grid',
@@ -22,7 +22,7 @@ export class AutomationSectionStrategy {
 
   static async generateCards(
     config: AutomationSectionStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceCardConfig[]> {
     const cards: LovelaceCardConfig[] = [];
 
@@ -31,11 +31,11 @@ export class AutomationSectionStrategy {
       .sort(
         (entityA, entityB) =>
           Date.parse(
-            hass.states[entityB.entity_id].attributes.last_triggered as string,
+            hass.states[entityB.entity_id].attributes.last_triggered as string
           ) -
           Date.parse(
-            hass.states[entityA.entity_id].attributes.last_triggered as string,
-          ),
+            hass.states[entityA.entity_id].attributes.last_triggered as string
+          )
       );
 
     if (config.floor) {
@@ -47,12 +47,12 @@ export class AutomationSectionStrategy {
       });
 
       const areas = Object.values(hass.areas).filter(
-        (area) => area.floor_id === config.floor!.floor_id,
+        (area) => area.floor_id === config.floor!.floor_id
       );
 
       for (const area of areas) {
         const areaAutomations = automationEntities.filter(
-          (entity) => entity.area_id === area.area_id,
+          (entity) => entity.area_id === area.area_id
         );
 
         if (areaAutomations.length === 0) {
@@ -68,7 +68,7 @@ export class AutomationSectionStrategy {
 
         for (const automation of areaAutomations) {
           cards.push(
-            await AutomationCardStrategy.generate({ entity: automation }, hass),
+            await AutomationCardStrategy.generate({ entity: automation }, hass)
           );
         }
       }
@@ -84,12 +84,12 @@ export class AutomationSectionStrategy {
     });
 
     const noAreaAutomations = automationEntities.filter(
-      (entity) => !entity.area_id,
+      (entity) => !entity.area_id
     );
 
     for (const automation of noAreaAutomations) {
       cards.push(
-        await AutomationCardStrategy.generate({ entity: automation }, hass),
+        await AutomationCardStrategy.generate({ entity: automation }, hass)
       );
     }
 

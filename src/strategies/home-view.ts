@@ -17,7 +17,7 @@ import { EnergyBadgeStrategy } from './energy-badge';
 export class HomeViewStrategy extends ReactiveElement {
   static async generate(
     config: object,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceViewConfig> {
     const [badges, sections] = await Promise.all([
       this.generateBadges(config, hass),
@@ -32,7 +32,7 @@ export class HomeViewStrategy extends ReactiveElement {
 
   static async generateBadges(
     config: object,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     const badges: LovelaceBadgeConfig[] = [];
 
@@ -81,14 +81,14 @@ export class HomeViewStrategy extends ReactiveElement {
 
   static async generateSections(
     config: object,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     const sections: LovelaceSectionRawConfig[] = [];
 
-    for (const floor_id of Object.keys(hass.floors)) {
+    for (const floor of Object.values(hass.floors)) {
       const section = await FloorSectionStrategy.generate(
-        { floor_id: floor_id },
-        hass,
+        { floor: floor },
+        hass
       );
 
       if (section) {
@@ -106,5 +106,5 @@ export class HomeViewStrategy extends ReactiveElement {
 
 customElements.define(
   `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-home`,
-  HomeViewStrategy,
+  HomeViewStrategy
 );

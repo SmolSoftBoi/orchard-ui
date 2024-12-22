@@ -9,5 +9,6 @@ dist/
 
 # IDE
 .vscode/*
+# Include the extensions.json file to share VSCode extensions configuration
 !.vscode/extensions.json
 .idea

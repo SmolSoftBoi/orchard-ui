@@ -14,7 +14,7 @@ type FloorViewStrategyConfig = {
 export class FloorViewStrategy extends ReactiveElement {
   static async generate(
     config: FloorViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceViewConfig> {
     if (!config.floor_id) {
       return {};
@@ -30,14 +30,14 @@ export class FloorViewStrategy extends ReactiveElement {
 
   static async generateBadges(
     config: FloorViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
     config: FloorViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];
   }
@@ -45,5 +45,5 @@ export class FloorViewStrategy extends ReactiveElement {
 
 customElements.define(
   `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-floor`,
-  FloorViewStrategy,
+  FloorViewStrategy
 );

@@ -12,7 +12,7 @@ type ClimateViewStrategyConfig = {};
 export class ClimateViewStrategy extends ReactiveElement {
   static async generate(
     config: ClimateViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
       badges: await this.generateBadges(config, hass),
@@ -24,14 +24,14 @@ export class ClimateViewStrategy extends ReactiveElement {
 
   static async generateBadges(
     config: ClimateViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
     config: ClimateViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];
   }
@@ -39,5 +39,5 @@ export class ClimateViewStrategy extends ReactiveElement {
 
 customElements.define(
   `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-climate`,
-  ClimateViewStrategy,
+  ClimateViewStrategy
 );

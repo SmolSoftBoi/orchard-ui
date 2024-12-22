@@ -11,7 +11,7 @@ export class ClimateBadgeStrategy {
 
   static async generate(
     config: ClimateBadgeStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig | undefined> {
     const badge: LovelaceBadgeConfig = {
       type: 'entity',
@@ -32,7 +32,7 @@ export class ClimateBadgeStrategy {
     }
 
     const climateEntities = Object.values(hass.entities).filter((entity) =>
-      entity.entity_id.startsWith('climate.'),
+      entity.entity_id.startsWith('climate.')
     );
 
     if (climateEntities.length === 1) {

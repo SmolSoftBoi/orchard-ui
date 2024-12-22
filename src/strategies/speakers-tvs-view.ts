@@ -12,7 +12,7 @@ type SpeakersTvsViewStrategyConfig = {};
 export class SpeakersTvsViewStrategy extends ReactiveElement {
   static async generate(
     config: SpeakersTvsViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
       badges: await this.generateBadges(config, hass),
@@ -24,14 +24,14 @@ export class SpeakersTvsViewStrategy extends ReactiveElement {
 
   static async generateBadges(
     config: SpeakersTvsViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
     config: SpeakersTvsViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];
   }
@@ -39,5 +39,5 @@ export class SpeakersTvsViewStrategy extends ReactiveElement {
 
 customElements.define(
   `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-speakers-tvs`,
-  SpeakersTvsViewStrategy,
+  SpeakersTvsViewStrategy
 );

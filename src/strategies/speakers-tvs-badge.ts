@@ -11,7 +11,7 @@ export class SpeakersTvsBadgeStrategy {
 
   static async generate(
     config: SpeakersTvsBadgeStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig | undefined> {
     const badge: LovelaceBadgeConfig = {
       type: 'entity',
@@ -32,7 +32,7 @@ export class SpeakersTvsBadgeStrategy {
     }
 
     const speakersTvsEntities = Object.values(hass.entities).filter((entity) =>
-      entity.entity_id.startsWith('media_player.'),
+      entity.entity_id.startsWith('media_player.')
     );
 
     if (speakersTvsEntities.length === 1) {

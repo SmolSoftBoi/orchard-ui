@@ -8,7 +8,7 @@ export type SecurityBadgeStrategyConfig = {
 export class SecurityBadgeStrategy {
   static async generate(
     config: SecurityBadgeStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig | undefined> {
     const badge = {
       type: 'entity',
@@ -24,7 +24,7 @@ export class SecurityBadgeStrategy {
 
   static homeEntity(hass: Hass): HassEntityRegistryDisplayEntry | undefined {
     const securityEntities = Object.values(hass.entities).filter((entity) =>
-      entity.entity_id.startsWith('lock.'),
+      entity.entity_id.startsWith('lock.')
     );
 
     if (securityEntities.length === 1) {

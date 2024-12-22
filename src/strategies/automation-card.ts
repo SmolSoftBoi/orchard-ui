@@ -8,7 +8,7 @@ export type AutomationCardStrategyConfig = {
 export class AutomationCardStrategy {
   static async generate(
     config: AutomationCardStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceCardConfig> {
     return {
       type: 'tile',

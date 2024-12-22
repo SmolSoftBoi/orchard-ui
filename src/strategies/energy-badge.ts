@@ -8,7 +8,7 @@ export class EnergyBadgeStrategy {
 
   static async generate(
     config: EnergyBadgeStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig | void> {
     const entity = this.globalEntity(hass);
 

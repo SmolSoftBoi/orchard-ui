@@ -48,37 +48,40 @@ export interface Hass {
     serviceData?: HassServiceCallRequest['serviceData'],
     target?: HassServiceCallRequest['target'],
     notifyOnError?: boolean,
-    returnResponse?: boolean,
+    returnResponse?: boolean
   ): Promise<HassServiceCallResponse>;
   callApi<T>(
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     path: string,
     parameters?: Record<string, unknown>,
-    headers?: Record<string, string>,
+    headers?: Record<string, string>
   ): Promise<T>;
   callApiRaw( // introduced in 2024.11
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     path: string,
     parameters?: Record<string, unknown>,
     headers?: Record<string, string>,
-    signal?: AbortSignal,
+    signal?: AbortSignal
   ): Promise<Response>;
-  fetchWithAuth(path: string, init?: Record<string, unknown>): Promise<Response>;
+  fetchWithAuth(
+    path: string,
+    init?: Record<string, unknown>
+  ): Promise<Response>;
   sendWS(msg: MessageBase): void;
   callWS<T>(msg: MessageBase): Promise<T>;
   loadBackendTranslation(
     category: Parameters<typeof getHassTranslations>[2],
     integrations?: Parameters<typeof getHassTranslations>[3],
-    configFlow?: Parameters<typeof getHassTranslations>[4],
+    configFlow?: Parameters<typeof getHassTranslations>[4]
   ): Promise<LocalizeFunc>;
   loadFragmentTranslation(
-    fragment: string,
+    fragment: string
   ): Promise<HassLocalizeFunc | undefined>;
   formatEntityState(stateObj: HassEntity, state?: string): string;
   formatEntityAttributeValue(
     stateObj: HassEntity,
     attribute: string,
-    value?: unknown,
+    value?: unknown
   ): string;
   formatEntityAttributeName(stateObj: HassEntity, attribute: string): string;
 }

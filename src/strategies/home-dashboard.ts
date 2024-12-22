@@ -6,10 +6,7 @@ import { AutomationsViewStrategy } from './automations-view';
 import { HomeViewStrategy } from './home-view';
 
 export class HomeDashboardStrategy extends ReactiveElement {
-  static async generate(
-    config: object,
-    hass: Hass,
-  ): Promise<LovelaceConfig> {
+  static async generate(config: object, hass: Hass): Promise<LovelaceConfig> {
     return {
       views: await this.generateViews(config, hass),
     };
@@ -17,7 +14,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
 
   static async generateViews(
     config: object,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceViewRawConfig[]> {
     return [
       {
@@ -81,5 +78,5 @@ export class HomeDashboardStrategy extends ReactiveElement {
 
 customElements.define(
   `ll-strategy-${CUSTOM_ELEMENT_NAME}-home`,
-  HomeDashboardStrategy,
+  HomeDashboardStrategy
 );

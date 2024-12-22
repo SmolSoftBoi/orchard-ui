@@ -6,7 +6,7 @@ export type WeatherBadgeStrategyConfig = {};
 export class WeatherBadgeStrategy {
   static async generate(
     config: WeatherBadgeStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig | undefined> {
     const badge: LovelaceBadgeConfig = {
       type: 'entity',
@@ -21,11 +21,11 @@ export class WeatherBadgeStrategy {
 
   static primaryEntity(hass: Hass): HassEntityRegistryDisplayEntry | undefined {
     const weatherEntities = Object.values(hass.entities).filter((entity) =>
-      entity.entity_id.startsWith('weather.'),
+      entity.entity_id.startsWith('weather.')
     );
 
     const appleWeatherEntity = weatherEntities.find(
-      (entity) => entity.platform === 'weatherkit',
+      (entity) => entity.platform === 'weatherkit'
     );
 
     if (appleWeatherEntity) {

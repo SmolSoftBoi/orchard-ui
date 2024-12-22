@@ -1,33 +1,32 @@
-import { Hass } from '../hass';
+import { Hass, HassFloorRegistryEntry } from '../hass';
 import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../lovelace';
+import { FloorHeadingCardStrategy } from './floor-heading-card';
 
 export type FloorSectionStrategyConfig = {
-  floor_id?: string;
+  floor: HassFloorRegistryEntry;
+};
+
+export type FloorSectionStrategyCardsConfig = {
+  floor: HassFloorRegistryEntry;
 };
 
 export class FloorSectionStrategy {
   static async generate(
     config: FloorSectionStrategyConfig,
-    hass: Hass,
-  ): Promise<LovelaceSectionRawConfig | undefined> {
-    if (!config.floor_id) {
-      return {};
-    }
-
-    const sections: LovelaceSectionRawConfig = {
+    hass: Hass
+  ): Promise<LovelaceSectionRawConfig> {
+    return {
       type: 'grid',
-      cards: await this.generateCards({}, hass),
+      cards: await this.generateCards({ floor: config.floor }, hass),
     };
-
-    return sections;
   }
 
   static async generateCards(
-    config: object,
-    hass: Hass,
+    config: FloorSectionStrategyCardsConfig,
+    hass: Hass
   ): Promise<LovelaceCardConfig[]> {
-    const cards: LovelaceCardConfig[] = [];
-
-    return cards;
+    return [
+      await FloorHeadingCardStrategy.generate({ floor: config.floor }, hass),
+    ];
   }
 }

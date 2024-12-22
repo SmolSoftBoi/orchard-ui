@@ -14,7 +14,7 @@ type RoomViewStrategyConfig = {
 export class RoomViewStrategy extends ReactiveElement {
   static async generate(
     config: RoomViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
       badges: await this.generateBadges(config, hass),
@@ -26,14 +26,14 @@ export class RoomViewStrategy extends ReactiveElement {
 
   static async generateBadges(
     config: RoomViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
     config: RoomViewStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];
   }
@@ -41,5 +41,5 @@ export class RoomViewStrategy extends ReactiveElement {
 
 customElements.define(
   `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-room`,
-  RoomViewStrategy,
+  RoomViewStrategy
 );

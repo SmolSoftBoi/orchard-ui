@@ -10,7 +10,7 @@ export class LightsBadgeStrategy {
 
   static async generate(
     config: LightsBadgeStrategyConfig,
-    hass: Hass,
+    hass: Hass
   ): Promise<LovelaceBadgeConfig | undefined> {
     const badge: LovelaceBadgeConfig = {
       type: 'entity',
@@ -32,7 +32,7 @@ export class LightsBadgeStrategy {
     }
 
     const lightEntities = Object.values(hass.entities).filter((entity) =>
-      entity.entity_id.startsWith('light.'),
+      entity.entity_id.startsWith('light.')
     );
 
     if (lightEntities.length === 1) {
