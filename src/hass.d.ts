@@ -94,7 +94,7 @@ export interface HassEntityRegistryDisplayEntry {
   area_id?: string;
   labels: string[];
   hidden?: boolean;
-  entity_category?: EntityCategory;
+  entity_category?: HassEntityCategory;
   translation_key?: string;
   platform?: string;
   display_precision?: number;
@@ -139,3 +139,11 @@ export interface HassFloorRegistryEntry extends RegistryEntry {
   icon: string | null;
   aliases: string[];
 }
+
+export type HassCondition =
+  | NumericStateCondition
+  | StateCondition
+  | ScreenCondition
+  | UserCondition
+  | OrCondition
+  | AndCondition;

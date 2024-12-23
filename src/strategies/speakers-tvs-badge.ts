@@ -41,6 +41,26 @@ export class SpeakersTvsBadgeStrategy {
       name: 'Speakers & TVs',
       icon: 'mdi:television-speaker',
       show_name: true,
+      visibility: [
+        {
+          condition: 'or',
+          conditions: [
+            {
+              condition: 'state',
+              entity: entity.entity_id,
+              state: 'on',
+            },
+            {
+              condition: 'state',
+              state: 'playing',
+            },
+            {
+              condition: 'state',
+              state: 'buffering',
+            },
+          ],
+        },
+      ],
     };
 
     return badge;

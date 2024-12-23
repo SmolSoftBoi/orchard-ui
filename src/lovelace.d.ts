@@ -17,7 +17,7 @@ export interface LovelaceViewConfig extends LovelaceBaseViewConfig {
 export interface LovelaceBadgeConfig {
   type: string;
   [key: string]: unknown;
-  visibility?: Condition[];
+  visibility?: HassCondition[];
 }
 
 export type LovelaceSectionRawConfig =
