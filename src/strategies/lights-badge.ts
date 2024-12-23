@@ -106,7 +106,7 @@ export class LightsBadgeStrategy {
       );
     }
 
-    if (lightEntities.length === 1) {
+    if (areaLightEntities.length === 1) {
       return lightEntities[0];
     }
   }

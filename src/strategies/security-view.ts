@@ -7,11 +7,9 @@ import {
 } from '../lovelace';
 import { Hass } from '../hass';
 
-type SecurityViewStrategyConfig = {};
-
 export class SecurityViewStrategy extends ReactiveElement {
   static async generate(
-    config: SecurityViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
@@ -23,14 +21,14 @@ export class SecurityViewStrategy extends ReactiveElement {
   }
 
   static async generateBadges(
-    config: SecurityViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
-    config: SecurityViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];

@@ -2,6 +2,8 @@ import { Hass, HassFloorRegistryEntry } from '../hass';
 import { LovelaceBadgeConfig, LovelaceCardConfig } from '../lovelace';
 import { ClimateBadgeStrategy } from './climate-badge';
 import { LightsBadgeStrategy } from './lights-badge';
+import { SecurityBadgeStrategy } from './security-badge';
+import { SpeakersTvsBadgeStrategy } from './speakers-tvs-badge';
 
 export type FloorHeadingCardStretegyConfig = {
   floor: HassFloorRegistryEntry;
@@ -34,10 +36,13 @@ export class FloorHeadingCardStrategy {
   ): Promise<LovelaceBadgeConfig[]> {
     const badges: LovelaceBadgeConfig[] = [];
 
-    const [climateBadge, lightBadge] = await Promise.all([
-      ClimateBadgeStrategy.generate({ floor: config.floor }, hass),
-      LightsBadgeStrategy.generate({ floor: config.floor }, hass),
-    ]);
+    const [climateBadge, lightBadge, securityBadge, speakersTvsEntities] =
+      await Promise.all([
+        ClimateBadgeStrategy.generate({ floor: config.floor }, hass),
+        LightsBadgeStrategy.generate({ floor: config.floor }, hass),
+        SecurityBadgeStrategy.generate({ floor: config.floor }, hass),
+        SpeakersTvsBadgeStrategy.generate({ floor: config.floor }, hass),
+      ]);
 
     if (climateBadge) {
       badges.push(climateBadge);
@@ -45,6 +50,14 @@ export class FloorHeadingCardStrategy {
 
     if (lightBadge) {
       badges.push(lightBadge);
+    }
+
+    if (securityBadge) {
+      badges.push(securityBadge);
+    }
+
+    if (speakersTvsEntities) {
+      badges.push(speakersTvsEntities);
     }
 
     return badges;

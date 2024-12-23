@@ -7,30 +7,31 @@ import {
 } from '../lovelace';
 import { Hass } from '../hass';
 
-type LightsViewStrategyConfig = {};
-
 export class LightsViewStrategy extends ReactiveElement {
   static async generate(
-    config: LightsViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
-    const view: LovelaceViewConfig = {
-      badges: await this.generateBadges(config, hass),
-      sections: await this.generateSections(config, hass),
-    };
+    const [badges, sections] = await Promise.all([
+      this.generateBadges(config, hass),
+      this.generateSections(config, hass),
+    ]);
 
-    return view;
+    return {
+      badges: badges,
+      sections: sections,
+    };
   }
 
   static async generateBadges(
-    config: LightsViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
-    config: LightsViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];
