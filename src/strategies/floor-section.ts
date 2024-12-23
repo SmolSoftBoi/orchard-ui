@@ -1,4 +1,8 @@
-import { Hass, HassFloorRegistryEntry } from '../hass';
+import {
+  Hass,
+  HassEntityRegistryDisplayEntry,
+  HassFloorRegistryEntry,
+} from '../hass';
 import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../lovelace';
 import { FloorHeadingCardStrategy } from './floor-heading-card';
 
@@ -25,8 +29,41 @@ export class FloorSectionStrategy {
     config: FloorSectionStrategyCardsConfig,
     hass: Hass
   ): Promise<LovelaceCardConfig[]> {
-    return [
+    const cards: LovelaceCardConfig[] = [
       await FloorHeadingCardStrategy.generate({ floor: config.floor }, hass),
     ];
+
+    const floorEntities: HassEntityRegistryDisplayEntry[] = [];
+
+    const floorAreas = Object.values(hass.areas).filter(
+      (area) => area.floor_id === config.floor.floor_id
+    );
+
+    for (const area of floorAreas) {
+      const areaDevices = Object.values(hass.devices).filter(
+        (device) => device.area_id === area.area_id
+      );
+
+      for (const device of areaDevices) {
+        floorEntities.push(
+          ...Object.values(hass.entities).filter(
+            (entity) => entity.device_id === device.id
+          )
+        );
+      }
+
+      const lightEntities = floorEntities.filter((entity) =>
+        entity.entity_id.startsWith('light.')
+      );
+
+      for (const entity of lightEntities) {
+        cards.push({
+          type: 'tile',
+          entity: entity.entity_id,
+        });
+      }
+    }
+
+    return cards;
   }
 }
