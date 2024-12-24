@@ -14,8 +14,8 @@ export const MAGIC_AREAS_FLOOR_ENTITY_IDS = {
 
 export const MAGIC_AREAS_AREA_ENTITY_IDS = {
   lights: {
-    all: 'magic_areas_light_groups_${area_id}_all_lights',
-    overhead: 'magic_areas_light_groups_${area_id}_overhead_lights',
-    accent: 'magic_areas_light_groups_${area_id}_accent_lights',
+    all: 'light.magic_areas_light_groups_${area_id}_all_lights',
+    overhead: 'light.magic_areas_light_groups_${area_id}_overhead_lights',
+    accent: 'light.magic_areas_light_groups_${area_id}_accent_lights',
   },
 };

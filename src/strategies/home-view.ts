@@ -14,12 +14,20 @@ import { SpeakersTvsBadgeStrategy } from './speakers-tvs-badge';
 import { FloorSectionStrategy } from './floor-section';
 import { Floor, Home } from '../home';
 
+export type HomeViewStrategyConfig = {
+  rooms: HomeViewStrategyConfigRoom[];
+};
+
+type HomeViewStrategyConfigRoom = {
+  id: string;
+};
+
 export class HomeViewStrategy extends ReactiveElement {
   static async generate(
-    config: object,
+    config: Partial<HomeViewStrategyConfig>,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
-    const home = new Home(hass);
+    const home = new Home(hass, this.config(config));
 
     const promises = [this.generateBadges(home), this.generateSections(home)];
 
@@ -71,6 +79,24 @@ export class HomeViewStrategy extends ReactiveElement {
 
   static maxColumns(floors: Floor[]): number {
     return Math.max(floors.length, 1);
+  }
+
+  static config(
+    partialConfig: Partial<HomeViewStrategyConfig>
+  ): HomeViewStrategyConfig {
+    const config: HomeViewStrategyConfig = {
+      rooms: [],
+    };
+
+    if (partialConfig.rooms) {
+      for (const room of partialConfig.rooms.filter((room) => room.id)) {
+        config.rooms.push({
+          id: room.id,
+        });
+      }
+    }
+
+    return config;
   }
 }
 

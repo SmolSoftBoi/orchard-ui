@@ -1,6 +1,7 @@
 import { Floor } from '../home';
 import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../lovelace';
 import { FloorHeadingCardStrategy } from './floor-heading-card';
+import { LightCard } from './light-card';
 
 export class FloorSectionStrategy {
   static async generate(floor: Floor): Promise<LovelaceSectionRawConfig> {
@@ -11,22 +12,16 @@ export class FloorSectionStrategy {
   }
 
   static async generateCards(floor: Floor): Promise<LovelaceCardConfig[]> {
-    const promises = [await FloorHeadingCardStrategy.generate(floor)];
+    const promises = [FloorHeadingCardStrategy.generate(floor)];
 
     for (const room of floor.rooms) {
       if (room.lightServiceGroups) {
         for (const lightService of room.lightServiceGroups) {
-          promises.push({
-            type: 'tile',
-            entity: lightService.id,
-          });
+          promises.push(LightCard.generate(lightService));
         }
       } else {
         for (const lightService of room.lightServices) {
-          promises.push({
-            type: 'tile',
-            entity: lightService.id,
-          });
+          promises.push(LightCard.generate(lightService));
         }
       }
     }

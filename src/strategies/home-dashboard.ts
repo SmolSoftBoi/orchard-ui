@@ -3,22 +3,28 @@ import { CUSTOM_ELEMENT_NAME } from '../config';
 import { Hass } from '../hass';
 import { LovelaceConfig, LovelaceViewRawConfig } from '../lovelace';
 import { AutomationsViewStrategy } from './automations-view';
-import { HomeViewStrategy } from './home-view';
+import { HomeViewStrategy, HomeViewStrategyConfig } from './home-view';
 import { Home } from '../home';
 
+export type HomeDashboardStrategyConfig = HomeViewStrategyConfig;
+
 export class HomeDashboardStrategy extends ReactiveElement {
-  static async generate(config: object, hass: Hass): Promise<LovelaceConfig> {
+  static async generate(
+    partialConfig: Partial<HomeDashboardStrategyConfig>,
+    hass: Hass
+  ): Promise<LovelaceConfig> {
+    const config = this.config(partialConfig);
+    const home = new Home(hass, this.config(config));
+
     return {
-      views: await this.generateViews(config, hass),
+      views: await this.generateViews(home, config),
     };
   }
 
   static async generateViews(
-    config: object,
-    hass: Hass
+    home: Home,
+    config: HomeDashboardStrategyConfig
   ): Promise<LovelaceViewRawConfig[]> {
-    const home = new Home(hass);
-
     return [
       {
         type: 'sections',
@@ -28,13 +34,14 @@ export class HomeDashboardStrategy extends ReactiveElement {
         max_columns: HomeViewStrategy.maxColumns(home.floors),
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-home`,
+          ...config,
         },
       },
       {
         type: 'sections',
         title: 'Automations',
         icon: 'mdi:alarm',
-        max_columns: AutomationsViewStrategy.maxColumns({}, hass),
+        max_columns: AutomationsViewStrategy.maxColumns(home),
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-automations`,
         },
@@ -76,6 +83,24 @@ export class HomeDashboardStrategy extends ReactiveElement {
         },
       },
     ];
+  }
+
+  static config(
+    partialConfig: Partial<HomeDashboardStrategyConfig>
+  ): HomeDashboardStrategyConfig {
+    const config: HomeDashboardStrategyConfig = {
+      rooms: [],
+    };
+
+    if (partialConfig.rooms) {
+      for (const room of partialConfig.rooms.filter((room) => room.id)) {
+        config.rooms.push({
+          id: room.id,
+        });
+      }
+    }
+
+    return config;
   }
 }
 

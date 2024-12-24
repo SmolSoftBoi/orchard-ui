@@ -7,6 +7,7 @@ import {
 } from '../lovelace';
 import { Hass } from '../hass';
 import { AutomationSectionStrategy } from './automations-section';
+import { Home } from '../home';
 
 export class AutomationsViewStrategy extends ReactiveElement {
   static async generate(
@@ -45,22 +46,12 @@ export class AutomationsViewStrategy extends ReactiveElement {
     return sections;
   }
 
-  static maxColumns(config: object, hass: Hass): number {
+  static maxColumns(home: Home): number {
     let maxColumns = 1;
 
-    for (const floor of Object.values(hass.floors)) {
-      const floorAreas = Object.values(hass.areas).filter(
-        (area) => area.floor_id === floor.floor_id
-      );
-
-      for (const area of floorAreas) {
-        const areaAutomations = Object.values(hass.entities).filter(
-          (entity) =>
-            entity.entity_id.startsWith('automation.') &&
-            entity.area_id === area.area_id
-        );
-
-        if (areaAutomations.length > 0) {
+    for (const floor of home.floors) {
+      for (const room of floor.rooms) {
+        if (room.automationServices.length > 0) {
           maxColumns = maxColumns++;
           break;
         }

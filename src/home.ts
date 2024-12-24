@@ -13,11 +13,22 @@ import {
 } from './magic-areas';
 import { WEATHERKIT_PLATFORM } from './weatherkit';
 
+export type HomeConfig = {
+  rooms?: HomeConfigRoom[];
+};
+
+export type HomeConfigRoom = {
+  id: string;
+};
+
 export class Home {
   readonly hass: Hass;
 
-  constructor(hass: Hass) {
+  config: HomeConfig;
+
+  constructor(hass: Hass, config?: HomeConfig) {
     this.hass = hass;
+    this.config = config || {};
   }
 
   get floors(): Floor[] {
@@ -139,7 +150,27 @@ export class Floor {
   get rooms(): Room[] {
     return Object.values(this.home.hass.areas)
       .filter((area) => area.floor_id === this.hassFloor.floor_id)
-      .map((area) => new Room(this.home, area.area_id));
+      .map((area) => new Room(this.home, area.area_id))
+      .sort(this.compareRooms.bind(this));
+  }
+
+  private compareRooms(roomA: Room, roomB: Room): number {
+    const rooms = this.home.config.rooms || [];
+    const indexA = rooms.findIndex((r) => r.id === roomA.id);
+    const indexB = rooms.findIndex((r) => r.id === roomB.id);
+
+    if (indexA < 0 && indexB < 0) {
+      return roomA.name.localeCompare(roomB.name);
+    }
+
+    if (indexA < 0) {
+      return 1;
+    }
+
+    if (indexB < 0) {
+      return -1;
+    }
+    return indexA - indexB;
   }
 
   get services(): Service[] {
@@ -247,6 +278,14 @@ export class Room {
     this.hassArea = this.home.hass.areas[areaId];
   }
 
+  get id(): string {
+    return this.hassArea.area_id;
+  }
+
+  get name(): string {
+    return this.hassArea.name;
+  }
+
   get accessories(): Accessory[] {
     return Object.values(this.home.hass.devices)
       .filter((device) => device.area_id === this.hassArea.area_id)
@@ -275,6 +314,10 @@ export class Room {
     return services;
   }
 
+  get automationServices(): Service[] {
+    return this.services.filter((service) => service.domain === 'automation');
+  }
+
   get lightServices(): Service[] {
     return this.services.filter((service) => service.domain === 'light');
   }
@@ -282,7 +325,7 @@ export class Room {
   get lightServiceGroups(): Service[] {
     const magicLights = [];
 
-    const magicOverheadLights = this.home.lightServices.find(
+    const overheadLights = this.home.lightServices.find(
       (service) =>
         service.id ===
         MAGIC_AREAS_AREA_ENTITY_IDS.lights.overhead.replace(
@@ -291,18 +334,18 @@ export class Room {
         )
     );
 
-    if (magicOverheadLights) {
-      magicLights.push(magicOverheadLights);
+    if (overheadLights) {
+      magicLights.push(overheadLights);
     }
 
-    const magicAccentLights = this.home.lightServices.find(
+    const accentLights = this.home.lightServices.find(
       (service) =>
         service.id ===
         MAGIC_AREAS_AREA_ENTITY_IDS.lights.accent.replace('${area_id}', this.id)
     );
 
-    if (magicAccentLights) {
-      magicLights.push(magicAccentLights);
+    if (accentLights) {
+      magicLights.push(accentLights);
     }
 
     if (magicLights.length > 0) {
@@ -334,10 +377,6 @@ export class Room {
     if (this.services.length === 1) {
       return this.services[0];
     }
-  }
-
-  get id(): string {
-    return this.hassArea.area_id;
   }
 }
 
@@ -374,6 +413,10 @@ export class Service {
 
   get id(): string {
     return this.hassEntity.entity_id;
+  }
+
+  get name(): string | void {
+    return this.hassEntity.name;
   }
 
   get domain(): string {
