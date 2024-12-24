@@ -13,6 +13,7 @@ import { SecurityBadgeStrategy } from './security-badge';
 import { SpeakersTvsBadgeStrategy } from './speakers-tvs-badge';
 import { FloorSectionStrategy } from './floor-section';
 import { Floor, Home } from '../home';
+import { WasteBadgeStrategy } from './waste-badge';
 
 export type HomeViewStrategyConfig = {
   rooms: HomeViewStrategyConfigRoom[];
@@ -60,6 +61,10 @@ export class HomeViewStrategy extends ReactiveElement {
 
     if (home.speakersTvsService) {
       promises.push(SpeakersTvsBadgeStrategy.generate(home.speakersTvsService));
+    }
+
+    if (home.wasteService) {
+      promises.push(WasteBadgeStrategy.generate(home.wasteService));
     }
 
     return [...(await Promise.all(promises))];

@@ -136,6 +136,18 @@ export class Home {
       return this.speakersTvsServices[0];
     }
   }
+
+  get wasteServices(): Service[] {
+    return this.services
+      .filter((service) => service.domain === 'calendar')
+      .filter((service) => service.id.includes('waste'));
+  }
+
+  get wasteService(): Service | void {
+    if (this.wasteServices.length === 1) {
+      return this.wasteServices[0];
+    }
+  }
 }
 
 export class Floor {
