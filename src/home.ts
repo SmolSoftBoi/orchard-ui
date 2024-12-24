@@ -399,6 +399,16 @@ export class Room {
     }
   }
 
+  get securityServices(): Service[] {
+    return this.services.filter((service) => service.domain === 'lock');
+  }
+
+  get securityService(): Service | void {
+    if (this.securityServices.length === 1) {
+      return this.securityServices[0];
+    }
+  }
+
   get speakerTvServices(): Service[] {
     return this.services.filter((service) => service.domain === 'media_player');
   }
