@@ -4,6 +4,7 @@ import { Hass } from '../hass';
 import { LovelaceConfig, LovelaceViewRawConfig } from '../lovelace';
 import { AutomationsViewStrategy } from './automations-view';
 import { HomeViewStrategy } from './home-view';
+import { Home } from '../home';
 
 export class HomeDashboardStrategy extends ReactiveElement {
   static async generate(config: object, hass: Hass): Promise<LovelaceConfig> {
@@ -16,13 +17,15 @@ export class HomeDashboardStrategy extends ReactiveElement {
     config: object,
     hass: Hass
   ): Promise<LovelaceViewRawConfig[]> {
+    const home = new Home(hass);
+
     return [
       {
         type: 'sections',
         title: 'Home',
         path: 'home',
         icon: 'mdi:home',
-        max_columns: HomeViewStrategy.maxColumns({}, hass),
+        max_columns: HomeViewStrategy.maxColumns(home.floors),
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-home`,
         },

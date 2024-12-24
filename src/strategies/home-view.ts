@@ -12,17 +12,18 @@ import { LightsBadgeStrategy } from './lights-badge';
 import { SecurityBadgeStrategy } from './security-badge';
 import { SpeakersTvsBadgeStrategy } from './speakers-tvs-badge';
 import { FloorSectionStrategy } from './floor-section';
-import { EnergyBadgeStrategy } from './energy-badge';
+import { Floor, Home } from '../home';
 
 export class HomeViewStrategy extends ReactiveElement {
   static async generate(
     config: object,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
-    const [badges, sections] = await Promise.all([
-      this.generateBadges(config, hass),
-      this.generateSections(config, hass),
-    ]);
+    const home = new Home(hass);
+
+    const promises = [this.generateBadges(home), this.generateSections(home)];
+
+    const [badges, sections] = await Promise.all(promises);
 
     return {
       badges,
@@ -30,77 +31,46 @@ export class HomeViewStrategy extends ReactiveElement {
     };
   }
 
-  static async generateBadges(
-    config: object,
-    hass: Hass
-  ): Promise<LovelaceBadgeConfig[]> {
-    const badges: LovelaceBadgeConfig[] = [];
+  static async generateBadges(home: Home): Promise<LovelaceBadgeConfig[]> {
+    const promises = [];
 
-    const [
-      weatherBadge,
-      climateBadge,
-      lightsBadge,
-      securtyBadge,
-      speakersTvsBadge,
-      energyBadge,
-    ] = await Promise.all([
-      WeatherBadgeStrategy.generate({}, hass),
-      ClimateBadgeStrategy.generate({}, hass),
-      LightsBadgeStrategy.generate({}, hass),
-      SecurityBadgeStrategy.generate({}, hass),
-      SpeakersTvsBadgeStrategy.generate({}, hass),
-      EnergyBadgeStrategy.generate({}, hass),
-    ]);
-
-    if (weatherBadge) {
-      badges.push(weatherBadge);
+    if (home.weatherService) {
+      promises.push(WeatherBadgeStrategy.generate(home.weatherService));
     }
 
-    if (climateBadge) {
-      badges.push(climateBadge);
+    if (home.climateService) {
+      promises.push(ClimateBadgeStrategy.generate(home.climateService));
     }
 
-    if (lightsBadge) {
-      badges.push(lightsBadge);
+    if (home.lightService) {
+      promises.push(LightsBadgeStrategy.generate(home.lightService));
     }
 
-    if (securtyBadge) {
-      badges.push(securtyBadge);
+    if (home.securityService) {
+      promises.push(SecurityBadgeStrategy.generate(home.securityService));
     }
 
-    if (speakersTvsBadge) {
-      badges.push(speakersTvsBadge);
+    if (home.speakersTvsService) {
+      promises.push(SpeakersTvsBadgeStrategy.generate(home.speakersTvsService));
     }
 
-    if (energyBadge) {
-      badges.push(energyBadge);
-    }
-
-    return badges;
+    return [...(await Promise.all(promises))];
   }
 
   static async generateSections(
-    config: object,
-    hass: Hass
+    home: Home
   ): Promise<LovelaceSectionRawConfig[]> {
-    const sections: LovelaceSectionRawConfig[] = [];
+    const promises = [];
 
-    for (const floor of Object.values(hass.floors)) {
-      const section = await FloorSectionStrategy.generate(
-        { floor: floor },
-        hass
-      );
-
-      if (section) {
-        sections.push(section);
-      }
+    for (const floor of home.floors) {
+      promises.push(FloorSectionStrategy.generate(floor));
     }
 
-    return sections;
+    return [...(await Promise.all(promises))];
   }
 
-  static maxColumns(config: object, hass: Hass): number {
-    return Math.max(Object.keys(hass.floors).length, 1);
+  static maxColumns(floors: Floor[]): number {
+    return Math.max(floors.length, 1);
   }
 }
 

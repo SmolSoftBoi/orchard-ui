@@ -1,4 +1,5 @@
-import { Hass, HassFloorRegistryEntry } from '../hass';
+import { HassFloorRegistryEntry } from '../hass';
+import { Floor } from '../home';
 import { LovelaceBadgeConfig, LovelaceCardConfig } from '../lovelace';
 import { ClimateBadgeStrategy } from './climate-badge';
 import { LightsBadgeStrategy } from './lights-badge';
@@ -14,52 +15,40 @@ export type FloorHeadingCardsStrategyBadgesConfig = {
 };
 
 export class FloorHeadingCardStrategy {
-  static async generate(
-    config: FloorHeadingCardStretegyConfig,
-    hass: Hass
-  ): Promise<LovelaceCardConfig> {
+  static async generate(floor: Floor): Promise<LovelaceCardConfig> {
     return {
       type: 'heading',
-      heading: config.floor.name,
-      icon: config.floor.icon || undefined,
+      heading: floor.name,
+      icon: floor.icon || undefined,
       tap_action: {
         action: 'navigate',
-        navigation_path: `/${config.floor.floor_id}`,
+        navigation_path: `/${floor.id}`,
       },
-      badges: await this.generateBadges({ floor: config.floor }, hass),
+      badges: await this.generateBadges(floor),
     };
   }
 
-  static async generateBadges(
-    config: FloorHeadingCardsStrategyBadgesConfig,
-    hass: Hass
-  ): Promise<LovelaceBadgeConfig[]> {
-    const badges: LovelaceBadgeConfig[] = [];
+  static async generateBadges(floor: Floor): Promise<LovelaceBadgeConfig[]> {
+    const promises = [];
 
-    const [climateBadge, lightBadge, securityBadge, speakersTvsEntities] =
-      await Promise.all([
-        ClimateBadgeStrategy.generate({ floor: config.floor }, hass),
-        LightsBadgeStrategy.generate({ floor: config.floor }, hass),
-        SecurityBadgeStrategy.generate({ floor: config.floor }, hass),
-        SpeakersTvsBadgeStrategy.generate({ floor: config.floor }, hass),
-      ]);
-
-    if (climateBadge) {
-      badges.push(climateBadge);
+    if (floor.climateService) {
+      promises.push(ClimateBadgeStrategy.generate(floor.climateService));
     }
 
-    if (lightBadge) {
-      badges.push(lightBadge);
+    if (floor.lightService) {
+      promises.push(LightsBadgeStrategy.generate(floor.lightService));
     }
 
-    if (securityBadge) {
-      badges.push(securityBadge);
+    if (floor.securityService) {
+      promises.push(SecurityBadgeStrategy.generate(floor.securityService));
     }
 
-    if (speakersTvsEntities) {
-      badges.push(speakersTvsEntities);
+    if (floor.speakersTvsService) {
+      promises.push(
+        SpeakersTvsBadgeStrategy.generate(floor.speakersTvsService)
+      );
     }
 
-    return badges;
+    return [...(await Promise.all(promises))];
   }
 }
