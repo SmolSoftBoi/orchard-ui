@@ -20,10 +20,12 @@ export class SpeakersTvsBadgeStrategy {
             },
             {
               condition: 'state',
+              entity: service.id,
               state: 'playing',
             },
             {
               condition: 'state',
+              entity: service.id,
               state: 'buffering',
             },
           ],

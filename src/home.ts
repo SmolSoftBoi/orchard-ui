@@ -318,6 +318,26 @@ export class Room {
     return this.services.filter((service) => service.domain === 'automation');
   }
 
+  get climateServices(): Service[] {
+    return this.services.filter((service) => service.domain === 'climate');
+  }
+
+  get climateService(): Service | void {
+    const magicService = this.home.climateServices.find(
+      (service) =>
+        service.id ===
+        MAGIC_AREAS_AREA_ENTITY_IDS.climate.replace('${area_id}', this.id)
+    );
+
+    if (magicService) {
+      return magicService;
+    }
+
+    if (this.climateServices.length === 1) {
+      return this.climateServices[0];
+    }
+  }
+
   get lightServices(): Service[] {
     return this.services.filter((service) => service.domain === 'light');
   }

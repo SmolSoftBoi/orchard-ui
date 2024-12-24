@@ -13,6 +13,7 @@ export const MAGIC_AREAS_FLOOR_ENTITY_IDS = {
 };
 
 export const MAGIC_AREAS_AREA_ENTITY_IDS = {
+  climate: 'climate.magic_areas_climate_groups_${area_id}_climate_control',
   lights: {
     all: 'light.magic_areas_light_groups_${area_id}_all_lights',
     overhead: 'light.magic_areas_light_groups_${area_id}_overhead_lights',

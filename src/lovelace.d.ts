@@ -17,7 +17,7 @@ export interface LovelaceViewConfig extends LovelaceBaseViewConfig {
 export interface LovelaceBadgeConfig {
   type: string;
   [key: string]: unknown;
-  visibility?: HassCondition[];
+  visibility?: LovelaceCondition[];
 }
 
 export type LovelaceSectionRawConfig =
@@ -33,5 +33,47 @@ export interface LovelaceCardConfig {
   grid_options?: LovelaceGridOptions;
   type: string;
   [key: string]: unknown;
-  visibility?: Condition[];
+  visibility?: LovelaceCondition[];
+}
+
+export type LovelaceCondition =
+  | LovelaceNumericStateCondition
+  | LovelaceStateCondition
+  | LovelaceScreenCondition
+  | LovelaceUserCondition
+  | LovelaceOrCondition
+  | LovelaceAndCondition;
+
+export interface LovelaceNumericStateCondition extends LovelaceBaseCondition {
+  condition: 'numeric_state';
+  entity?: string;
+  below?: string | number;
+  above?: string | number;
+}
+
+export interface LovelaceStateCondition extends LovelaceBaseCondition {
+  condition: 'state';
+  entity?: string;
+  state?: string | string[];
+  state_not?: string | string[];
+}
+
+export interface LovelaceScreenCondition extends LovelaceBaseCondition {
+  condition: 'screen';
+  media_query?: string;
+}
+
+export interface LovelaceUserCondition extends LovelaceBaseCondition {
+  condition: 'user';
+  users?: string[];
+}
+
+export interface LovelaceOrCondition extends LovelaceBaseCondition {
+  condition: 'or';
+  conditions?: LovelaceCondition[];
+}
+
+export interface LovelaceAndCondition extends LovelaceBaseCondition {
+  condition: 'and';
+  conditions?: LovelaceCondition[];
 }

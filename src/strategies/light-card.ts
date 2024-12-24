@@ -1,12 +1,34 @@
 import { Service } from '../home';
 import { LovelaceCardConfig } from '../lovelace';
 
-export class LightCard {
+export class LightCardStrategy {
   static async generate(lightService: Service): Promise<LovelaceCardConfig> {
     return {
       type: 'tile',
       entity: lightService.id,
       features: await this.generateFeatures(lightService),
+      visibility: [
+        {
+          condition: 'or',
+          conditions: [
+            {
+              condition: 'state',
+              entity: lightService.id,
+              state: 'on',
+            },
+            {
+              condition: 'state',
+              entity: 'sun.sun',
+              state: 'below_horizon',
+            },
+          ],
+        },
+        {
+          condition: 'state',
+          entity: lightService.id,
+          state_not: 'unavailable',
+        },
+      ],
     };
   }
 
