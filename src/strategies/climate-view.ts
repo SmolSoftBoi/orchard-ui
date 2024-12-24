@@ -6,32 +6,31 @@ import {
   LovelaceViewConfig,
 } from '../lovelace';
 import { Hass } from '../hass';
-
-type ClimateViewStrategyConfig = {};
+import { Home } from '../home';
 
 export class ClimateViewStrategy extends ReactiveElement {
   static async generate(
-    config: ClimateViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
-    const view: LovelaceViewConfig = {
-      badges: await this.generateBadges(config, hass),
-      sections: await this.generateSections(config, hass),
-    };
+    const home = new Home(hass);
 
-    return view;
+    const promises = [this.generateBadges(home), this.generateSections(home)];
+
+    const [badges, sections] = await Promise.all(promises);
+
+    return {
+      badges: badges,
+      sections: sections,
+    };
   }
 
-  static async generateBadges(
-    config: ClimateViewStrategyConfig,
-    hass: Hass
-  ): Promise<LovelaceBadgeConfig[]> {
+  static async generateBadges(home: Home): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
-    config: ClimateViewStrategyConfig,
-    hass: Hass
+    home: Home
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];
   }
