@@ -19,4 +19,6 @@ export const MAGIC_AREAS_AREA_ENTITY_IDS = {
     overhead: 'light.magic_areas_light_groups_${area_id}_overhead_lights',
     accent: 'light.magic_areas_light_groups_${area_id}_accent_lights',
   },
+  media_players:
+    'media_player.magic_areas_media_player_groups_${area_id}_media_player_group',
 };

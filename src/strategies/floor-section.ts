@@ -3,6 +3,7 @@ import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../lovelace';
 import { ClimateCardStategy } from './climate-card';
 import { FloorHeadingCardStrategy } from './floor-heading-card';
 import { LightCardStrategy } from './light-card';
+import { SpeakerTvCardStrategy } from './speaker-tv-card';
 
 export class FloorSectionStrategy {
   static async generate(floor: Floor): Promise<LovelaceSectionRawConfig> {
@@ -29,6 +30,14 @@ export class FloorSectionStrategy {
       } else {
         for (const lightService of room.lightServices) {
           promises.push(LightCardStrategy.generate(lightService));
+        }
+      }
+    }
+
+    for (const room of floor.rooms) {
+      if (room.speakerTvServices) {
+        for (const speakerTvService of room.speakerTvServices) {
+          promises.push(SpeakerTvCardStrategy.generate(speakerTvService));
         }
       }
     }

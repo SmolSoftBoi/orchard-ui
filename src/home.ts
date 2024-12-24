@@ -398,6 +398,26 @@ export class Room {
       return this.services[0];
     }
   }
+
+  get speakerTvServices(): Service[] {
+    return this.services.filter((service) => service.domain === 'media_player');
+  }
+
+  get speakerTvService(): Service | void {
+    const magicService = this.home.speakersTvsServices.find(
+      (service) =>
+        service.id ===
+        MAGIC_AREAS_AREA_ENTITY_IDS.media_players.replace('${area_id}', this.id)
+    );
+
+    if (magicService) {
+      return magicService;
+    }
+
+    if (this.speakerTvServices.length === 1) {
+      return this.speakerTvServices[0];
+    }
+  }
 }
 
 export class Accessory {
