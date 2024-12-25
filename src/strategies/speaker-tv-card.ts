@@ -1,5 +1,5 @@
-import { Service } from '../home';
 import { LovelaceCardConfig } from '../lovelace';
+import { Service } from '../service';
 
 export class SpeakerTvCardStrategy {
   static async generate(

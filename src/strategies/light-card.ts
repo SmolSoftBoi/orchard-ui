@@ -1,5 +1,5 @@
-import { Service } from '../home';
 import { LovelaceCardConfig } from '../lovelace';
+import { Service } from '../service';
 
 export class LightCardStrategy {
   static async generate(lightService: Service): Promise<LovelaceCardConfig> {
