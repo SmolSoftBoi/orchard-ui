@@ -6,6 +6,7 @@ import Floor from './floor';
 import Room from './room';
 import { ServiceGroup } from './service';
 import Service, { ServiceTypes } from './service/service';
+import User from './user';
 
 export type HomeConfig = {
   rooms?: HomeConfigRoom[];
@@ -23,6 +24,7 @@ export interface HomeInterface {
   servicesWithTypes: (serviceTypes: string[]) => Service[];
   serviceGroups: ServiceGroup[];
   state: HomeState;
+  currentUser: User;
 }
 
 export type HomeState = string;
@@ -77,6 +79,10 @@ export default class Home implements HomeInterface {
 
   get state(): HomeState {
     return this.hass.config.state;
+  }
+
+  get currentUser(): User {
+    return new User(this);
   }
 
   floor(floorId: string): Floor | void {
