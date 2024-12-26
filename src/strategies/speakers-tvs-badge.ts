@@ -1,5 +1,5 @@
+import { Service } from '../home';
 import { LovelaceBadgeConfig } from '../lovelace';
-import { Service } from '../home/service';
 
 export class SpeakersTvsBadgeStrategy {
   static async generate(service: Service): Promise<LovelaceBadgeConfig> {

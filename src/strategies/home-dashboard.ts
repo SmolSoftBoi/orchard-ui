@@ -4,7 +4,7 @@ import { Hass } from '../hass';
 import { LovelaceConfig, LovelaceViewRawConfig } from '../lovelace';
 import { AutomationsViewStrategy } from './automations-view';
 import { HomeViewStrategy, HomeViewStrategyConfig } from './home-view';
-import { Home } from '../home/home';
+import Home from '../home/home';
 
 export type HomeDashboardStrategyConfig = HomeViewStrategyConfig;
 

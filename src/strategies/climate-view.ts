@@ -6,7 +6,7 @@ import {
   LovelaceViewConfig,
 } from '../lovelace';
 import { Hass } from '../hass';
-import { Home } from '../home/home';
+import { Home } from '../home';
 
 export class ClimateViewStrategy extends ReactiveElement {
   static async generate(

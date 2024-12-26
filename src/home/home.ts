@@ -1,8 +1,8 @@
 import { Hass } from '../hass';
 import { MAGIC_AREAS_GLOBAL_ENTITY_IDS } from '../magic-areas';
 import { WEATHERKIT_PLATFORM } from '../weatherkit';
-import { Floor } from './floor';
-import { Service } from './service';
+import Floor from './floor';
+import Service from './service';
 
 export type HomeConfig = {
   rooms?: HomeConfigRoom[];
@@ -12,7 +12,7 @@ export type HomeConfigRoom = {
   id: string;
 };
 
-export class Home {
+export default class Home {
   readonly hass: Hass;
 
   config: HomeConfig;

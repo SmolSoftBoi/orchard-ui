@@ -7,7 +7,7 @@ import {
 } from '../lovelace';
 import { Hass } from '../hass';
 import { AutomationSectionStrategy } from './automations-section';
-import { Home } from '../home/home';
+import { Home } from '../home';
 
 export class AutomationsViewStrategy extends ReactiveElement {
   static async generate(

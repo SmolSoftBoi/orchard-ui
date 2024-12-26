@@ -1,10 +1,10 @@
-import { Accessory } from './accessory';
 import { HassAreaRegistryEntry } from '../hass';
-import { Home } from './home';
 import { MAGIC_AREAS_AREA_ENTITY_IDS } from '../magic-areas';
-import { Service } from './service';
+import Accessory from './accessory';
+import Home from './home';
+import Service from './service';
 
-export class Room {
+export default class Room {
   readonly home: Home;
   readonly hassArea: HassAreaRegistryEntry;
 
