@@ -1,8 +1,14 @@
 import { HassFloorRegistryEntry } from '../hass';
 import { MAGIC_AREAS_FLOOR_ENTITY_IDS } from '../magic-areas';
 import Home from './home';
-import Room from './room';
+import Room, { RoomInterface } from './room';
 import Service from './service/service';
+
+export interface ZoneInterface {
+  name: string;
+  id: string;
+  rooms: RoomInterface[];
+}
 
 export default class Zone {
   readonly home: Home;
@@ -11,6 +17,14 @@ export default class Zone {
   constructor(home: Home, floorId: string) {
     this.home = home;
     this.hassFloor = this.home.hass.floors[floorId];
+  }
+
+  get name(): string {
+    return this.hassFloor.name;
+  }
+
+  get id(): string {
+    return this.hassFloor.floor_id;
   }
 
   get rooms(): Room[] {
@@ -120,14 +134,6 @@ export default class Zone {
     if (this.speakersTvsServices.length === 1) {
       return this.speakersTvsServices[0];
     }
-  }
-
-  get id(): string {
-    return this.hassFloor.floor_id;
-  }
-
-  get name(): string {
-    return this.hassFloor.name;
   }
 
   get icon(): string | void {

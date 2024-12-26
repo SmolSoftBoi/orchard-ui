@@ -4,6 +4,12 @@ import Accessory from './accessory';
 import Home from './home';
 import Service from './service/service';
 
+export interface RoomInterface {
+  name: string;
+  id: string;
+  accessories: Accessory[];
+}
+
 export default class Room {
   readonly home: Home;
   readonly hassArea: HassAreaRegistryEntry;
@@ -13,12 +19,12 @@ export default class Room {
     this.hassArea = this.home.hass.areas[areaId];
   }
 
-  get id(): string {
-    return this.hassArea.area_id;
-  }
-
   get name(): string {
     return this.hassArea.name;
+  }
+
+  get id(): string {
+    return this.hassArea.area_id;
   }
 
   get accessories(): Accessory[] {
