@@ -4,7 +4,7 @@ import Home from './home';
 import Room from './room';
 import Service from './service/service';
 
-export default class Floor {
+export default class Zone {
   readonly home: Home;
   readonly hassFloor: HassFloorRegistryEntry;
 

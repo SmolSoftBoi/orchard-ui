@@ -1,5 +1,5 @@
 import { HassFloorRegistryEntry } from '../../hass';
-import Floor from '../../home/floor';
+import Floor from '../../home/zone';
 import { LovelaceBadgeConfig, LovelaceCardConfig } from '../../lovelace';
 import { ClimateBadgeStrategy } from '../badges/climate-badge';
 import { LightsBadgeStrategy } from '../badges/lights-badge';

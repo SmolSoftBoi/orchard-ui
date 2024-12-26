@@ -1,4 +1,4 @@
-import Floor from '../../home/floor';
+import Floor from '../../home/zone';
 import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../../lovelace';
 import { ClimateCardStategy } from '../cards/climate-card';
 import { FloorHeadingCardStrategy } from '../cards/floor-heading-card';

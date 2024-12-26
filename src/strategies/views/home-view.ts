@@ -14,7 +14,7 @@ import { SpeakersTvsBadgeStrategy } from '../badges/speakers-tvs-badge';
 import { FloorSectionStrategy } from '../sections/floor-section';
 import { WasteBadgeStrategy } from '../badges/waste-badge';
 import Home from '../../home/home';
-import Floor from '../../home/floor';
+import Floor from '../../home/zone';
 
 export type HomeViewStrategyConfig = {
   rooms: HomeViewStrategyConfigRoom[];
@@ -78,7 +78,7 @@ export class HomeViewStrategy extends ReactiveElement {
   ): Promise<LovelaceSectionRawConfig[]> {
     const promises = [];
 
-    for (const floor of home.floors) {
+    for (const floor of home.zones) {
       promises.push(FloorSectionStrategy.generate(floor));
     }
 

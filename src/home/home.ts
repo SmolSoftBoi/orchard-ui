@@ -2,7 +2,7 @@ import { Hass } from '../hass';
 import { MAGIC_AREAS_GLOBAL_ENTITY_IDS } from '../magic-areas';
 import { WEATHERKIT_PLATFORM } from '../weatherkit';
 import Accessory from './accessory';
-import Floor from './floor';
+import Floor from './zone';
 import Room from './room';
 import { ServiceGroup } from './service';
 import Service, { ServiceTypes } from './service/service';
@@ -19,7 +19,7 @@ export type HomeConfigRoom = {
 export interface HomeInterface {
   name: string;
   rooms: Room[];
-  floors: Floor[];
+  zones: Floor[];
   accessories: Accessory[];
   servicesWithTypes: (serviceTypes: string[]) => Service[];
   serviceGroups: ServiceGroup[];
@@ -46,14 +46,14 @@ export default class Home implements HomeInterface {
   get rooms(): Room[] {
     const rooms = [];
 
-    for (const floor of this.floors) {
+    for (const floor of this.zones) {
       rooms.push(...floor.rooms);
     }
 
     return rooms;
   }
 
-  get floors(): Floor[] {
+  get zones(): Floor[] {
     return Object.values(this.hass.floors).map(
       (floor) => new Floor(this, floor.floor_id)
     );

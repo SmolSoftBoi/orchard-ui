@@ -49,7 +49,7 @@ export class AutomationsViewStrategy extends ReactiveElement {
   static maxColumns(home: Home): number {
     let maxColumns = 1;
 
-    for (const floor of home.floors) {
+    for (const floor of home.zones) {
       for (const room of floor.rooms) {
         if (room.automationServices.length > 0) {
           maxColumns = maxColumns++;

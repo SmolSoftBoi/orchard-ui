@@ -31,7 +31,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
         title: 'Home',
         path: 'home',
         icon: 'mdi:home',
-        max_columns: HomeViewStrategy.maxColumns(home.floors),
+        max_columns: HomeViewStrategy.maxColumns(home.zones),
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-home`,
           ...config,
