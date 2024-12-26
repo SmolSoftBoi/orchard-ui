@@ -22,7 +22,10 @@ export interface HomeInterface {
   accessories: Accessory[];
   servicesWithTypes: (serviceTypes: string[]) => Service[];
   serviceGroups: ServiceGroup[];
+  state: HomeState;
 }
+
+export type HomeState = string;
 
 export default class Home implements HomeInterface {
   readonly hass: Hass;
@@ -70,6 +73,10 @@ export default class Home implements HomeInterface {
 
   get serviceGroups(): ServiceGroup[] {
     return [];
+  }
+
+  get state(): HomeState {
+    return this.hass.config.state;
   }
 
   floor(floorId: string): Floor | void {
