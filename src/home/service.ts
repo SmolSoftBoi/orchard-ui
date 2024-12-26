@@ -1,5 +1,5 @@
 import { HassEntity } from 'home-assistant-js-websocket';
-import { HassEntityRegistryDisplayEntry } from './hass';
+import { HassEntityRegistryDisplayEntry } from '../hass';
 import { Home } from './home';
 
 export class Service {

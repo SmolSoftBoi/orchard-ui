@@ -1,5 +1,5 @@
 import { LovelaceBadgeConfig } from '../lovelace';
-import { Service } from '../service';
+import { Service } from '../home/service';
 
 export class WasteBadgeStrategy {
   static async generate(wasteService: Service): Promise<LovelaceBadgeConfig> {

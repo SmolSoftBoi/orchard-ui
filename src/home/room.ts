@@ -1,7 +1,7 @@
 import { Accessory } from './accessory';
-import { HassAreaRegistryEntry } from './hass';
+import { HassAreaRegistryEntry } from '../hass';
 import { Home } from './home';
-import { MAGIC_AREAS_AREA_ENTITY_IDS } from './magic-areas';
+import { MAGIC_AREAS_AREA_ENTITY_IDS } from '../magic-areas';
 import { Service } from './service';
 
 export class Room {

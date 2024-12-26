@@ -1,4 +1,4 @@
-import { Floor } from '../floor';
+import { Floor } from '../home/floor';
 import { HassFloorRegistryEntry } from '../hass';
 import { LovelaceBadgeConfig, LovelaceCardConfig } from '../lovelace';
 import { ClimateBadgeStrategy } from './climate-badge';

@@ -1,6 +1,6 @@
-import { HassFloorRegistryEntry } from './hass';
+import { HassFloorRegistryEntry } from '../hass';
 import { Home } from './home';
-import { MAGIC_AREAS_FLOOR_ENTITY_IDS } from './magic-areas';
+import { MAGIC_AREAS_FLOOR_ENTITY_IDS } from '../magic-areas';
 import { Room } from './room';
 import { Service } from './service';
 

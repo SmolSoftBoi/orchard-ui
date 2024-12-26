@@ -1,5 +1,5 @@
 import { LovelaceCardConfig } from '../lovelace';
-import { Service } from '../service';
+import { Service } from '../home/service';
 
 export class ClimateCardStategy {
   static async generate(climateService: Service): Promise<LovelaceCardConfig> {
