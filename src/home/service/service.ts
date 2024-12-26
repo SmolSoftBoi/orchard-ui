@@ -1,6 +1,8 @@
 import { HassEntity } from 'home-assistant-js-websocket';
-import { HassEntityRegistryDisplayEntry } from '../hass';
-import Home from './home';
+import { HassEntityRegistryDisplayEntry } from '../../hass';
+import Home from '../home';
+
+export type ServiceTypes = string;
 
 export default class Service {
   readonly home: Home;

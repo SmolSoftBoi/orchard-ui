@@ -31,6 +31,8 @@ export class HomeViewStrategy extends ReactiveElement {
   ): Promise<LovelaceViewConfig> {
     const home = new Home(hass, this.config(config));
 
+    console.log('Home', home);
+
     const promises = [this.generateBadges(home), this.generateSections(home)];
 
     const [badges, sections] = await Promise.all(promises);

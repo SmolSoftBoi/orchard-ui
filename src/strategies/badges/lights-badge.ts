@@ -1,4 +1,4 @@
-import Service from '../../home/service';
+import Service from '../../home/service/service';
 import { LovelaceBadgeConfig } from '../../lovelace';
 
 export class LightsBadgeStrategy {

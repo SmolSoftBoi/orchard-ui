@@ -2,7 +2,7 @@ import { HassFloorRegistryEntry } from '../hass';
 import { MAGIC_AREAS_FLOOR_ENTITY_IDS } from '../magic-areas';
 import Home from './home';
 import Room from './room';
-import Service from './service';
+import Service from './service/service';
 
 export default class Floor {
   readonly home: Home;

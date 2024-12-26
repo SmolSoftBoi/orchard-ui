@@ -1,8 +1,10 @@
 import { Hass } from '../hass';
 import { MAGIC_AREAS_GLOBAL_ENTITY_IDS } from '../magic-areas';
 import { WEATHERKIT_PLATFORM } from '../weatherkit';
+import Accessory from './accessory';
 import Floor from './floor';
-import Service from './service';
+import Room from './room';
+import Service, { ServiceTypes } from './service/service';
 
 export type HomeConfig = {
   rooms?: HomeConfigRoom[];
@@ -12,7 +14,15 @@ export type HomeConfigRoom = {
   id: string;
 };
 
-export default class Home {
+export interface HomeInterface {
+  name: string;
+  floors: Floor[];
+  rooms: Room[];
+  accessories: Accessory[];
+  servicesWithTypes: (serviceTypes: string[]) => Service[];
+}
+
+export default class Home implements HomeInterface {
   readonly hass: Hass;
 
   config: HomeConfig;
@@ -20,6 +30,20 @@ export default class Home {
   constructor(hass: Hass, config?: HomeConfig) {
     this.hass = hass;
     this.config = config || {};
+  }
+
+  get name(): string {
+    return this.hass.config.location_name;
+  }
+
+  get rooms(): Room[] {
+    const rooms = [];
+
+    for (const floor of this.floors) {
+      rooms.push(...floor.rooms);
+    }
+
+    return rooms;
   }
 
   get floors(): Floor[] {
@@ -36,10 +60,24 @@ export default class Home {
     }
   }
 
+  get accessories(): Accessory[] {
+    const accessories = [];
+
+    for (const room of this.rooms) {
+      accessories.push(...room.accessories);
+    }
+
+    return accessories;
+  }
+
   get services(): Service[] {
     return Object.values(this.hass.entities).map(
       (entity) => new Service(this, entity.entity_id)
     );
+  }
+
+  servicesWithTypes(serviceTypes: ServiceTypes[]) {
+    return [];
   }
 
   get weatherService(): Service | void {

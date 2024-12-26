@@ -1,6 +1,6 @@
 import { HassDeviceRegistryEntry } from '../hass';
 import Home from './home';
-import Service from './service';
+import Service from './service/service';
 
 export default class Accessory {
   readonly home: Home;
