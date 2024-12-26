@@ -1,19 +1,17 @@
 import { ReactiveElement } from 'lit';
-import { CUSTOM_ELEMENT_NAME } from '../config';
+import { CUSTOM_ELEMENT_NAME } from '../../config';
 import {
   LovelaceBadgeConfig,
   LovelaceSectionRawConfig,
   LovelaceViewConfig,
-} from '../lovelace';
-import { Hass } from '../hass';
+} from '../../lovelace';
+import { Hass } from '../../hass';
 
-type RoomViewStrategyConfig = {
-  area_id?: string;
-};
+type SpeakersTvsViewStrategyConfig = {};
 
-export class RoomViewStrategy extends ReactiveElement {
+export class SpeakersTvsViewStrategy extends ReactiveElement {
   static async generate(
-    config: RoomViewStrategyConfig,
+    config: SpeakersTvsViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
@@ -25,14 +23,14 @@ export class RoomViewStrategy extends ReactiveElement {
   }
 
   static async generateBadges(
-    config: RoomViewStrategyConfig,
+    config: SpeakersTvsViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
-    config: RoomViewStrategyConfig,
+    config: SpeakersTvsViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];
@@ -40,6 +38,6 @@ export class RoomViewStrategy extends ReactiveElement {
 }
 
 customElements.define(
-  `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-room`,
-  RoomViewStrategy
+  `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-speakers-tvs`,
+  SpeakersTvsViewStrategy
 );

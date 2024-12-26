@@ -1,11 +1,11 @@
 import { ReactiveElement } from 'lit';
-import { CUSTOM_ELEMENT_NAME } from '../config';
+import { CUSTOM_ELEMENT_NAME } from '../../config';
 import {
   LovelaceBadgeConfig,
   LovelaceSectionRawConfig,
   LovelaceViewConfig,
-} from '../lovelace';
-import { Hass } from '../hass';
+} from '../../lovelace';
+import { Hass } from '../../hass';
 
 type FloorViewStrategyConfig = {
   floor_id?: string;

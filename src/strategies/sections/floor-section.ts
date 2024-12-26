@@ -1,10 +1,10 @@
-import Floor from '../home/floor';
-import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../lovelace';
-import { ClimateCardStategy } from './climate-card';
-import { FloorHeadingCardStrategy } from './floor-heading-card';
-import { LightCardStrategy } from './light-card';
-import { SecurityCardStrategy } from './security-card';
-import { SpeakerTvCardStrategy } from './speaker-tv-card';
+import Floor from '../../home/floor';
+import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../../lovelace';
+import { ClimateCardStategy } from '../cards/climate-card';
+import { FloorHeadingCardStrategy } from '../cards/floor-heading-card';
+import { LightCardStrategy } from '../cards/light-card';
+import { SecurityCardStrategy } from '../cards/security-card';
+import { SpeakerTvCardStrategy } from '../cards/speaker-tv-card';
 
 export class FloorSectionStrategy {
   static async generate(floor: Floor): Promise<LovelaceSectionRawConfig> {

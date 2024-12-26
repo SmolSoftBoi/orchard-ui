@@ -1,5 +1,5 @@
-import { Hass, HassEntityRegistryDisplayEntry } from '../hass';
-import { LovelaceCardConfig } from '../lovelace';
+import { Hass, HassEntityRegistryDisplayEntry } from '../../hass';
+import { LovelaceCardConfig } from '../../lovelace';
 
 export type AutomationCardStrategyConfig = {
   entity: HassEntityRegistryDisplayEntry;

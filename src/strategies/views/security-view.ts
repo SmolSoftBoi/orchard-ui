@@ -1,17 +1,15 @@
 import { ReactiveElement } from 'lit';
-import { CUSTOM_ELEMENT_NAME } from '../config';
+import { CUSTOM_ELEMENT_NAME } from '../../config';
 import {
   LovelaceBadgeConfig,
   LovelaceSectionRawConfig,
   LovelaceViewConfig,
-} from '../lovelace';
-import { Hass } from '../hass';
+} from '../../lovelace';
+import { Hass } from '../../hass';
 
-type SpeakersTvsViewStrategyConfig = {};
-
-export class SpeakersTvsViewStrategy extends ReactiveElement {
+export class SecurityViewStrategy extends ReactiveElement {
   static async generate(
-    config: SpeakersTvsViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
@@ -23,14 +21,14 @@ export class SpeakersTvsViewStrategy extends ReactiveElement {
   }
 
   static async generateBadges(
-    config: SpeakersTvsViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
-    config: SpeakersTvsViewStrategyConfig,
+    config: object,
     hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];
@@ -38,6 +36,6 @@ export class SpeakersTvsViewStrategy extends ReactiveElement {
 }
 
 customElements.define(
-  `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-speakers-tvs`,
-  SpeakersTvsViewStrategy
+  `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-security`,
+  SecurityViewStrategy
 );

@@ -1,15 +1,19 @@
 import { ReactiveElement } from 'lit';
-import { CUSTOM_ELEMENT_NAME } from '../config';
+import { CUSTOM_ELEMENT_NAME } from '../../config';
 import {
   LovelaceBadgeConfig,
   LovelaceSectionRawConfig,
   LovelaceViewConfig,
-} from '../lovelace';
-import { Hass } from '../hass';
+} from '../../lovelace';
+import { Hass } from '../../hass';
 
-export class SecurityViewStrategy extends ReactiveElement {
+type RoomViewStrategyConfig = {
+  area_id?: string;
+};
+
+export class RoomViewStrategy extends ReactiveElement {
   static async generate(
-    config: object,
+    config: RoomViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
@@ -21,14 +25,14 @@ export class SecurityViewStrategy extends ReactiveElement {
   }
 
   static async generateBadges(
-    config: object,
+    config: RoomViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
-    config: object,
+    config: RoomViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
     return [];
@@ -36,6 +40,6 @@ export class SecurityViewStrategy extends ReactiveElement {
 }
 
 customElements.define(
-  `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-security`,
-  SecurityViewStrategy
+  `ll-strategy-view-${CUSTOM_ELEMENT_NAME}-room`,
+  RoomViewStrategy
 );

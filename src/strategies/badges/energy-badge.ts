@@ -1,5 +1,5 @@
-import { Hass, HassEntityRegistryDisplayEntry } from '../hass';
-import { LovelaceBadgeConfig } from '../lovelace';
+import { Hass, HassEntityRegistryDisplayEntry } from '../../hass';
+import { LovelaceBadgeConfig } from '../../lovelace';
 
 export type EnergyBadgeStrategyConfig = {};
 

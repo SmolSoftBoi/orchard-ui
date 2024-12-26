@@ -1,20 +1,20 @@
 import { ReactiveElement } from 'lit';
-import { CUSTOM_ELEMENT_NAME } from '../config';
+import { CUSTOM_ELEMENT_NAME } from '../../config';
 import {
   LovelaceBadgeConfig,
   LovelaceSectionRawConfig,
   LovelaceViewConfig,
-} from '../lovelace';
-import { Hass } from '../hass';
-import { ClimateBadgeStrategy } from './climate-badge';
-import { WeatherBadgeStrategy } from './weather-badge';
-import { LightsBadgeStrategy } from './lights-badge';
-import { SecurityBadgeStrategy } from './security-badge';
-import { SpeakersTvsBadgeStrategy } from './speakers-tvs-badge';
-import { FloorSectionStrategy } from './floor-section';
-import { WasteBadgeStrategy } from './waste-badge';
-import Home from '../home/home';
-import Floor from '../home/floor';
+} from '../../lovelace';
+import { Hass } from '../../hass';
+import { ClimateBadgeStrategy } from '../badges/climate-badge';
+import { WeatherBadgeStrategy } from '../badges/weather-badge';
+import { LightsBadgeStrategy } from '../badges/lights-badge';
+import { SecurityBadgeStrategy } from '../badges/security-badge';
+import { SpeakersTvsBadgeStrategy } from '../badges/speakers-tvs-badge';
+import { FloorSectionStrategy } from '../sections/floor-section';
+import { WasteBadgeStrategy } from '../badges/waste-badge';
+import Home from '../../home/home';
+import Floor from '../../home/floor';
 
 export type HomeViewStrategyConfig = {
   rooms: HomeViewStrategyConfigRoom[];

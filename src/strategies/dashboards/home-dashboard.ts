@@ -1,10 +1,10 @@
 import { ReactiveElement } from 'lit';
-import { CUSTOM_ELEMENT_NAME } from '../config';
-import { Hass } from '../hass';
-import { LovelaceConfig, LovelaceViewRawConfig } from '../lovelace';
-import { AutomationsViewStrategy } from './automations-view';
-import { HomeViewStrategy, HomeViewStrategyConfig } from './home-view';
-import Home from '../home/home';
+import { CUSTOM_ELEMENT_NAME } from '../../config';
+import { Hass } from '../../hass';
+import { LovelaceConfig, LovelaceViewRawConfig } from '../../lovelace';
+import { AutomationsViewStrategy } from '../views/automations-view';
+import { HomeViewStrategy, HomeViewStrategyConfig } from '../views/home-view';
+import Home from '../../home/home';
 
 export type HomeDashboardStrategyConfig = HomeViewStrategyConfig;
 

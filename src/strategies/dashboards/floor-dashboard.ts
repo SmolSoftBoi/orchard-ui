@@ -1,7 +1,7 @@
 import { ReactiveElement } from 'lit';
-import { CUSTOM_ELEMENT_NAME } from '../config';
-import { Hass, HassFloorRegistryEntry } from '../hass';
-import { LovelaceConfig, LovelaceViewRawConfig } from '../lovelace';
+import { CUSTOM_ELEMENT_NAME } from '../../config';
+import { Hass, HassFloorRegistryEntry } from '../../hass';
+import { LovelaceConfig, LovelaceViewRawConfig } from '../../lovelace';
 
 type FloorDashboardStrategyConfig = {
   floor_id?: string;

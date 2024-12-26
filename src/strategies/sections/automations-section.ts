@@ -1,6 +1,6 @@
-import { Hass, HassFloorRegistryEntry } from '../hass';
-import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../lovelace';
-import { AutomationCardStrategy } from './automation-card';
+import { Hass, HassFloorRegistryEntry } from '../../hass';
+import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../../lovelace';
+import { AutomationCardStrategy } from '../cards/automation-card';
 
 export type AutomationSectionStrategyConfig = {
   floor?: HassFloorRegistryEntry;

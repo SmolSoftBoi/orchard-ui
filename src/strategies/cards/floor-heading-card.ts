@@ -1,10 +1,10 @@
-import { HassFloorRegistryEntry } from '../hass';
-import Floor from '../home/floor';
-import { LovelaceBadgeConfig, LovelaceCardConfig } from '../lovelace';
-import { ClimateBadgeStrategy } from './climate-badge';
-import { LightsBadgeStrategy } from './lights-badge';
-import { SecurityBadgeStrategy } from './security-badge';
-import { SpeakersTvsBadgeStrategy } from './speakers-tvs-badge';
+import { HassFloorRegistryEntry } from '../../hass';
+import Floor from '../../home/floor';
+import { LovelaceBadgeConfig, LovelaceCardConfig } from '../../lovelace';
+import { ClimateBadgeStrategy } from '../badges/climate-badge';
+import { LightsBadgeStrategy } from '../badges/lights-badge';
+import { SecurityBadgeStrategy } from '../badges/security-badge';
+import { SpeakersTvsBadgeStrategy } from '../badges/speakers-tvs-badge';
 
 export type FloorHeadingCardStretegyConfig = {
   floor: HassFloorRegistryEntry;
