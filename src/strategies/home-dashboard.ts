@@ -25,7 +25,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
     home: Home,
     config: HomeDashboardStrategyConfig
   ): Promise<LovelaceViewRawConfig[]> {
-    return [
+    const views = [
       {
         type: 'sections',
         title: 'Home',
@@ -83,6 +83,8 @@ export class HomeDashboardStrategy extends ReactiveElement {
         },
       },
     ];
+
+    return views;
   }
 
   static config(
