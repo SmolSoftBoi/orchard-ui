@@ -1,3 +1,4 @@
 import Service from './service';
+import ServiceGroup from './service-group';
 
-export { Service };
+export { Service, ServiceGroup };

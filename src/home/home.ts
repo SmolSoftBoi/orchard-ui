@@ -4,6 +4,7 @@ import { WEATHERKIT_PLATFORM } from '../weatherkit';
 import Accessory from './accessory';
 import Floor from './floor';
 import Room from './room';
+import { ServiceGroup } from './service';
 import Service, { ServiceTypes } from './service/service';
 
 export type HomeConfig = {
@@ -16,10 +17,11 @@ export type HomeConfigRoom = {
 
 export interface HomeInterface {
   name: string;
-  floors: Floor[];
   rooms: Room[];
+  floors: Floor[];
   accessories: Accessory[];
   servicesWithTypes: (serviceTypes: string[]) => Service[];
+  serviceGroups: ServiceGroup[];
 }
 
 export default class Home implements HomeInterface {
@@ -52,14 +54,6 @@ export default class Home implements HomeInterface {
     );
   }
 
-  floor(floorId: string): Floor | void {
-    const hassFloor = this.hass.floors[floorId];
-
-    if (hassFloor) {
-      return new Floor(this, floorId);
-    }
-  }
-
   get accessories(): Accessory[] {
     const accessories = [];
 
@@ -70,14 +64,26 @@ export default class Home implements HomeInterface {
     return accessories;
   }
 
+  servicesWithTypes(serviceTypes: ServiceTypes[]) {
+    return [];
+  }
+
+  get serviceGroups(): ServiceGroup[] {
+    return [];
+  }
+
+  floor(floorId: string): Floor | void {
+    const hassFloor = this.hass.floors[floorId];
+
+    if (hassFloor) {
+      return new Floor(this, floorId);
+    }
+  }
+
   get services(): Service[] {
     return Object.values(this.hass.entities).map(
       (entity) => new Service(this, entity.entity_id)
     );
-  }
-
-  servicesWithTypes(serviceTypes: ServiceTypes[]) {
-    return [];
   }
 
   get weatherService(): Service | void {
