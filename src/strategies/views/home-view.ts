@@ -13,8 +13,8 @@ import { SecurityBadgeStrategy } from '../badges/security-badge';
 import { SpeakersTvsBadgeStrategy } from '../badges/speakers-tvs-badge';
 import { FloorSectionStrategy } from '../sections/floor-section';
 import { WasteBadgeStrategy } from '../badges/waste-badge';
-import Home from '../../home/home';
 import Floor from '../../home/zone';
+import { Home } from '../../home';
 
 export type HomeViewStrategyConfig = {
   rooms: HomeViewStrategyConfigRoom[];

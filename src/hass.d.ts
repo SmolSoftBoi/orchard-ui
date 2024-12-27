@@ -2,6 +2,7 @@ import type {
   HassConfig,
   HassEntities,
   HassServices,
+  MessageBase,
 } from 'home-assistant-js-websocket';
 
 export interface Hass {

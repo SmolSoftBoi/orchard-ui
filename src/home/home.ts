@@ -3,7 +3,7 @@ import { MAGIC_AREAS_GLOBAL_ENTITY_IDS } from '../magic-areas';
 import { WEATHERKIT_PLATFORM } from '../weatherkit';
 import Accessory from './accessory';
 import Floor from './zone';
-import Room, { RoomInterface } from './room';
+import Room from './room';
 import { ServiceGroup } from './service';
 import Service, { ServiceTypes } from './service/service';
 import User from './user';
@@ -16,20 +16,9 @@ export type HomeConfigRoom = {
   id: string;
 };
 
-export interface HomeInterface {
-  name: string;
-  rooms: RoomInterface[];
-  zones: Floor[];
-  accessories: Accessory[];
-  servicesWithTypes: (serviceTypes: string[]) => Service[];
-  serviceGroups: ServiceGroup[];
-  state: HomeState;
-  currentUser: User;
-}
-
 export type HomeState = string;
 
-export default class Home implements HomeInterface {
+export default class Home {
   readonly hass: Hass;
 
   config: HomeConfig;

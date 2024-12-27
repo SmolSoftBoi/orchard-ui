@@ -723,6 +723,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@smolpack/hasskit@portal:/Users/kristian/Repos/hasskit::locator=orchard-ui%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@smolpack/hasskit@portal:/Users/kristian/Repos/hasskit::locator=orchard-ui%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "@smolpack/prettier-config@npm:^1.0.5":
   version: 1.0.5
   resolution: "@smolpack/prettier-config@npm:1.0.5"
@@ -2205,6 +2211,7 @@ __metadata:
     "@eslint/js": "npm:^9.12.0"
     "@rslib/core": "npm:^0.1.4"
     "@smolpack/eslint-config": "npm:^1.0.0"
+    "@smolpack/hasskit": "npm:^1.0.1"
     "@smolpack/prettier-config": "npm:^1.0.5"
     "@types/node": "npm:^22.8.1"
     eslint: "npm:^9.12.0"

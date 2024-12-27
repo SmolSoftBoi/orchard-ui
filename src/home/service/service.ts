@@ -1,8 +1,15 @@
 import { HassEntity } from 'home-assistant-js-websocket';
 import { HassEntityRegistryDisplayEntry } from '../../hass';
 import Home from '../home';
+import { CharacteristicInterface } from '../../charactaristic';
 
 export type ServiceTypes = string;
+
+export interface ServiceInterface {
+  characteristics: CharacteristicInterface[];
+  name: string;
+  id: string;
+}
 
 export default class Service {
   readonly home: Home;
@@ -15,12 +22,16 @@ export default class Service {
     this.hassState = this.home.hass.states[entityId];
   }
 
-  get id(): string {
-    return this.hassEntity.entity_id;
+  get characteristics(): CharacteristicInterface[] {
+    return [];
   }
 
   get name(): string | void {
     return this.hassEntity.name;
+  }
+
+  get id(): string {
+    return this.hassEntity.entity_id;
   }
 
   get domain(): string {

@@ -23,6 +23,7 @@
     "@eslint/js": "^9.12.0",
     "@rslib/core": "^0.1.4",
     "@smolpack/eslint-config": "^1.0.0",
+    "@smolpack/hasskit": "^1.0.1",
     "@smolpack/prettier-config": "^1.0.5",
     "@types/node": "^22.8.1",
     "eslint": "^9.12.0",
@@ -37,5 +38,8 @@
   },
   "prettier": "@smolpack/prettier-config",
   "private": true,
-  "packageManager": "yarn@4.1.0+sha512.5b7bc055cad63273dda27df1570a5d2eb4a9f03b35b394d3d55393c2a5560a17f5cef30944b11d6a48bcbcfc1c3a26d618aae77044774c529ba36cb771ad5b0f"
+  "packageManager": "yarn@4.1.0+sha512.5b7bc055cad63273dda27df1570a5d2eb4a9f03b35b394d3d55393c2a5560a17f5cef30944b11d6a48bcbcfc1c3a26d618aae77044774c529ba36cb771ad5b0f",
+  "resolutions": {
+    "@smolpack/hasskit": "portal:/Users/kristian/Repos/hasskit"
+  }
 }
