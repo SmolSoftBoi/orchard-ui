@@ -7,7 +7,7 @@ import {
 } from '../../lovelace';
 import { Hass } from '../../hass';
 import { AutomationSectionStrategy } from '../sections/automations-section';
-import { Home } from '../../home';
+import { Home } from '@smolpack/hasskit';
 
 export class AutomationsViewStrategy extends ReactiveElement {
   static async generate(
@@ -50,8 +50,10 @@ export class AutomationsViewStrategy extends ReactiveElement {
     let maxColumns = 1;
 
     for (const floor of home.zones) {
-      for (const room of floor.rooms) {
-        if (room.automationServices.length > 0) {
+      for (const area of floor.rooms) {
+        const areaAutomationEntities = area.entitiesWithDomains(['automation']);
+
+        if (areaAutomationEntities.length > 0) {
           maxColumns = maxColumns++;
           break;
         }

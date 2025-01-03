@@ -1,4 +1,5 @@
 import { ReactiveElement } from 'lit';
+import { Home, Floor } from '@smolpack/hasskit';
 import { CUSTOM_ELEMENT_NAME } from '../../config';
 import {
   LovelaceBadgeConfig,
@@ -13,8 +14,6 @@ import { SecurityBadgeStrategy } from '../badges/security-badge';
 import { SpeakersTvsBadgeStrategy } from '../badges/speakers-tvs-badge';
 import { FloorSectionStrategy } from '../sections/floor-section';
 import { WasteBadgeStrategy } from '../badges/waste-badge';
-import Floor from '../../home/zone';
-import { Home } from '../../home';
 
 export type HomeViewStrategyConfig = {
   rooms: HomeViewStrategyConfigRoom[];
@@ -31,8 +30,6 @@ export class HomeViewStrategy extends ReactiveElement {
   ): Promise<LovelaceViewConfig> {
     const home = new Home(hass, this.config(config));
 
-    console.log('Home', home);
-
     const promises = [this.generateBadges(home), this.generateSections(home)];
 
     const [badges, sections] = await Promise.all(promises);
@@ -46,28 +43,28 @@ export class HomeViewStrategy extends ReactiveElement {
   static async generateBadges(home: Home): Promise<LovelaceBadgeConfig[]> {
     const promises = [];
 
-    if (home.weatherService) {
-      promises.push(WeatherBadgeStrategy.generate(home.weatherService));
+    if (home.weatherEntity) {
+      promises.push(WeatherBadgeStrategy.generate(home.weatherEntity));
     }
 
-    if (home.climateService) {
-      promises.push(ClimateBadgeStrategy.generate(home.climateService));
+    if (home.climateEntity) {
+      promises.push(ClimateBadgeStrategy.generate(home.climateEntity));
     }
 
-    if (home.lightService) {
-      promises.push(LightsBadgeStrategy.generate(home.lightService));
+    if (home.lightEntity) {
+      promises.push(LightsBadgeStrategy.generate(home.lightEntity));
     }
 
-    if (home.securityService) {
-      promises.push(SecurityBadgeStrategy.generate(home.securityService));
+    if (home.lockEntity) {
+      promises.push(SecurityBadgeStrategy.generate(home.lockEntity));
     }
 
-    if (home.speakersTvsService) {
-      promises.push(SpeakersTvsBadgeStrategy.generate(home.speakersTvsService));
+    if (home.mediaPlayerEntity) {
+      promises.push(SpeakersTvsBadgeStrategy.generate(home.mediaPlayerEntity));
     }
 
-    if (home.wasteService) {
-      promises.push(WasteBadgeStrategy.generate(home.wasteService));
+    if (home.wasteEntity) {
+      promises.push(WasteBadgeStrategy.generate(home.wasteEntity));
     }
 
     return [...(await Promise.all(promises))];
@@ -78,7 +75,7 @@ export class HomeViewStrategy extends ReactiveElement {
   ): Promise<LovelaceSectionRawConfig[]> {
     const promises = [];
 
-    for (const floor of home.zones) {
+    for (const floor of home.floors) {
       promises.push(FloorSectionStrategy.generate(floor));
     }
 
