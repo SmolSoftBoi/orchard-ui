@@ -31,22 +31,20 @@ export class FloorHeadingCardStrategy {
   static async generateBadges(floor: Floor): Promise<LovelaceBadgeConfig[]> {
     const promises = [];
 
-    if (floor.climateService) {
-      promises.push(ClimateBadgeStrategy.generate(floor.climateService));
+    if (floor.climateEntity) {
+      promises.push(ClimateBadgeStrategy.generate(floor.climateEntity));
     }
 
-    if (floor.lightService) {
-      promises.push(LightsBadgeStrategy.generate(floor.lightService));
+    if (floor.lightEntity) {
+      promises.push(LightsBadgeStrategy.generate(floor.lightEntity));
     }
 
-    if (floor.securityService) {
-      promises.push(SecurityBadgeStrategy.generate(floor.securityService));
+    if (floor.lockEntity) {
+      promises.push(SecurityBadgeStrategy.generate(floor.lockEntity));
     }
 
-    if (floor.speakersTvsService) {
-      promises.push(
-        SpeakersTvsBadgeStrategy.generate(floor.speakersTvsService)
-      );
+    if (floor.mediaPlayerEntity) {
+      promises.push(SpeakersTvsBadgeStrategy.generate(floor.mediaPlayerEntity));
     }
 
     return [...(await Promise.all(promises))];
