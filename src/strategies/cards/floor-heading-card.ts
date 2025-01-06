@@ -1,5 +1,5 @@
+import { Floor } from '@smolpack/hasskit';
 import { HassFloorRegistryEntry } from '../../hass';
-import Floor from '../../home/zone';
 import { LovelaceBadgeConfig, LovelaceCardConfig } from '../../lovelace';
 import { ClimateBadgeStrategy } from '../badges/climate-badge';
 import { LightsBadgeStrategy } from '../badges/lights-badge';
@@ -19,10 +19,10 @@ export class FloorHeadingCardStrategy {
     return {
       type: 'heading',
       heading: floor.name,
-      icon: floor.icon || undefined,
+      icon: floor.icon,
       tap_action: {
         action: 'navigate',
-        navigation_path: `/${floor.id}`,
+        navigation_path: `/${floor.uniqueIdentifier}`,
       },
       badges: await this.generateBadges(floor),
     };

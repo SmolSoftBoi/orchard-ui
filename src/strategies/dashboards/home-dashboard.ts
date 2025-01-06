@@ -4,7 +4,7 @@ import { Hass } from '../../hass';
 import { LovelaceConfig, LovelaceViewRawConfig } from '../../lovelace';
 import { AutomationsViewStrategy } from '../views/automations-view';
 import { HomeViewStrategy, HomeViewStrategyConfig } from '../views/home-view';
-import Home from '../../home/home';
+import { Home } from '@smolpack/hasskit';
 
 export type HomeDashboardStrategyConfig = HomeViewStrategyConfig;
 

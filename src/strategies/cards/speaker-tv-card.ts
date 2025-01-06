@@ -1,30 +1,35 @@
-import { Service } from '../../home';
+import { Entity } from '@smolpack/hasskit';
 import { LovelaceCardConfig } from '../../lovelace';
 
 export class SpeakerTvCardStrategy {
   static async generate(
-    speakerTvService: Service
+    mediaPlayerEntity: Entity
   ): Promise<LovelaceCardConfig> {
     return {
-      type: 'media-control',
-      entity: speakerTvService.id,
+      type: 'tile',
+      entity: mediaPlayerEntity.uniqueIdentifier,
+      features: [
+        {
+          type: 'media-player-volume-slider',
+        },
+      ],
       visibility: [
         {
           condition: 'or',
           conditions: [
             {
               condition: 'state',
-              entity: speakerTvService.id,
+              entity: mediaPlayerEntity.uniqueIdentifier,
               state: 'on',
             },
             {
               condition: 'state',
-              entity: speakerTvService.id,
+              entity: mediaPlayerEntity.uniqueIdentifier,
               state: 'playing',
             },
             {
               condition: 'state',
-              entity: speakerTvService.id,
+              entity: mediaPlayerEntity.uniqueIdentifier,
               state: 'buffering',
             },
           ],
