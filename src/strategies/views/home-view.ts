@@ -14,6 +14,7 @@ import { SecurityBadgeStrategy } from '../badges/security-badge';
 import { SpeakersTvsBadgeStrategy } from '../badges/speakers-tvs-badge';
 import { FloorSectionStrategy } from '../sections/floor-section';
 import { WasteBadgeStrategy } from '../badges/waste-badge';
+import { EnergyBadgeStrategy } from '../badges/energy-badge';
 
 export type HomeViewStrategyConfig = {
   rooms: HomeViewStrategyConfigRoom[];
@@ -61,6 +62,10 @@ export class HomeViewStrategy extends ReactiveElement {
 
     if (home.mediaPlayerEntity) {
       promises.push(SpeakersTvsBadgeStrategy.generate(home.mediaPlayerEntity));
+    }
+
+    if (home.c02SignalEntity) {
+      promises.push(EnergyBadgeStrategy.generate(home.c02SignalEntity))
     }
 
     if (home.wasteEntity) {

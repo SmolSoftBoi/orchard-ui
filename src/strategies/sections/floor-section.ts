@@ -1,4 +1,4 @@
-import { Floor, LightEntity } from '@smolpack/hasskit';
+import { ClimateEntity, Floor, LightEntity } from '@smolpack/hasskit';
 import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../../lovelace';
 import { ClimateCardStategy } from '../cards/climate-card';
 import { FloorHeadingCardStrategy } from '../cards/floor-heading-card';
@@ -18,13 +18,13 @@ export class FloorSectionStrategy {
     const promises = [FloorHeadingCardStrategy.generate(floor)];
 
     for (const area of floor.areas) {
-      for (const climateService of area.entitiesWithDomains(['climate'])) {
+      for (const climateService of area.entitiesWithDomains(['climate']) as ClimateEntity[]) {
         promises.push(ClimateCardStategy.generate(climateService));
       }
     }
 
     for (const area of floor.areas) {
-      if (area.lightEntityGroups) {
+      if (area.lightEntityGroups.length > 0) {
         for (const lightEntity of area.lightEntityGroups) {
           promises.push(LightCardStrategy.generate(lightEntity));
         }
@@ -37,8 +37,8 @@ export class FloorSectionStrategy {
       }
     }
 
-    for (const room of floor.rooms) {
-      const lockEntities = room.entitiesWithDomains(['lock']);
+    for (const area of floor.areas) {
+      const lockEntities = area.entitiesWithDomains(['lock']);
 
       if (lockEntities) {
         for (const lockEntity of lockEntities) {
