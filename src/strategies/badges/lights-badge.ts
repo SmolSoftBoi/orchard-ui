@@ -1,11 +1,11 @@
-import Service from '../../home/service/service';
+import { LightEntity } from '@smolpack/hasskit';
 import { LovelaceBadgeConfig } from '../../lovelace';
 
 export class LightsBadgeStrategy {
-  static async generate(service: Service): Promise<LovelaceBadgeConfig> {
+  static async generate(lightEntity: LightEntity): Promise<LovelaceBadgeConfig> {
     return {
       type: 'entity',
-      entity: service.id,
+      entity: lightEntity.uniqueIdentifier,
       name: 'Lights',
       icon: 'mdi:lightbulb-group',
       show_name: true,

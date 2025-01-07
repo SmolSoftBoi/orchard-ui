@@ -1,19 +1,19 @@
-import Service from '../../home/service/service';
+import { LightEntity } from '@smolpack/hasskit';
 import { LovelaceCardConfig } from '../../lovelace';
 
 export class LightCardStrategy {
-  static async generate(lightService: Service): Promise<LovelaceCardConfig> {
+  static async generate(lightEntity: LightEntity): Promise<LovelaceCardConfig> {
     return {
       type: 'tile',
-      entity: lightService.id,
-      features: await this.generateFeatures(lightService),
+      entity: lightEntity.uniqueIdentifier,
+      features: await this.generateFeatures(lightEntity),
       visibility: [
         {
           condition: 'or',
           conditions: [
             {
               condition: 'state',
-              entity: lightService.id,
+              entity: lightEntity.uniqueIdentifier,
               state: 'on',
             },
             {
@@ -25,7 +25,7 @@ export class LightCardStrategy {
         },
         {
           condition: 'state',
-          entity: lightService.id,
+          entity: lightEntity.uniqueIdentifier,
           state_not: 'unavailable',
         },
       ],
@@ -33,25 +33,17 @@ export class LightCardStrategy {
   }
 
   static async generateFeatures(
-    lightService: Service
+    lightEntity: LightEntity
   ): Promise<{ type: string }[]> {
     const features = [];
 
-    if (
-      (
-        lightService.hassState.attributes.supported_color_modes as string[]
-      ).includes('brightness')
-    ) {
+    if (lightEntity.state.supportedColorModes.includes('brightness')) {
       features.push({
         type: 'light-brightness',
       });
     }
 
-    if (
-      (
-        lightService.hassState.attributes.supported_color_modes as string[]
-      ).includes('color_temp')
-    ) {
+    if (lightEntity.state.supportedColorModes.includes('color_temp')) {
       features.push(
         ...[
           {

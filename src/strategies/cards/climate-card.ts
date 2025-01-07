@@ -1,12 +1,12 @@
-import Service from '../../home/service/service';
+import { Entity } from '@smolpack/hasskit';
 import { LovelaceCardConfig } from '../../lovelace';
 
 export class ClimateCardStategy {
-  static async generate(climateService: Service): Promise<LovelaceCardConfig> {
+  static async generate(climateEntity: Entity): Promise<LovelaceCardConfig> {
     return {
       type: 'tile',
-      entity: climateService.id,
-      name: climateService.name,
+      entity: climateEntity.uniqueIdentifier,
+      name: climateEntity.name,
       control: 'climate',
       features: await this.generateFeatures(),
     };

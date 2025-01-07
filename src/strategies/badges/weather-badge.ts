@@ -1,11 +1,11 @@
-import { Service } from '../../home';
+import { Entity } from '@smolpack/hasskit';
 import { LovelaceBadgeConfig } from '../../lovelace';
 
 export class WeatherBadgeStrategy {
-  static async generate(service: Service): Promise<LovelaceBadgeConfig> {
+  static async generate(entity: Entity): Promise<LovelaceBadgeConfig> {
     return {
       type: 'entity',
-      entity: service.id,
+      entity: entity.uniqueIdentifier,
       name: 'Weather',
       show_name: true,
       state_content: ['state', 'temperature'],

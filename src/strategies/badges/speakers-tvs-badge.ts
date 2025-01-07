@@ -1,11 +1,11 @@
-import { Service } from '../../home';
+import { Entity } from '@smolpack/hasskit';
 import { LovelaceBadgeConfig } from '../../lovelace';
 
 export class SpeakersTvsBadgeStrategy {
-  static async generate(service: Service): Promise<LovelaceBadgeConfig> {
+  static async generate(mediaPlayerEntity: Entity): Promise<LovelaceBadgeConfig> {
     return {
       type: 'entity',
-      entity: service.id,
+      entity: mediaPlayerEntity.uniqueIdentifier,
       name: 'Speakers & TVs',
       icon: 'mdi:television-speaker',
       show_name: true,
@@ -15,17 +15,17 @@ export class SpeakersTvsBadgeStrategy {
           conditions: [
             {
               condition: 'state',
-              entity: service.id,
+              entity: mediaPlayerEntity.uniqueIdentifier,
               state: 'on',
             },
             {
               condition: 'state',
-              entity: service.id,
+              entity: mediaPlayerEntity.uniqueIdentifier,
               state: 'playing',
             },
             {
               condition: 'state',
-              entity: service.id,
+              entity: mediaPlayerEntity.uniqueIdentifier,
               state: 'buffering',
             },
           ],

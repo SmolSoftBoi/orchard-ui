@@ -16,6 +16,8 @@ export class HomeDashboardStrategy extends ReactiveElement {
     const config = this.config(partialConfig);
     const home = new Home(hass, this.config(config));
 
+    console.info('Orchard UI', 'Home Dashboard', 'Home', home);
+
     return {
       views: await this.generateViews(home, config),
     };

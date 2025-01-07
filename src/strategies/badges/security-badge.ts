@@ -1,10 +1,10 @@
-import Service from '../../home/service/service';
+import { Entity } from '@smolpack/hasskit';
 import { LovelaceBadgeConfig } from '../../lovelace';
 export class SecurityBadgeStrategy {
-  static async generate(service: Service): Promise<LovelaceBadgeConfig> {
+  static async generate(securityEntity: Entity): Promise<LovelaceBadgeConfig> {
     return {
       type: 'entity',
-      entity: service.id,
+      entity: securityEntity.uniqueIdentifier,
       name: 'Security',
       icon: 'mdi:lock',
       show_name: true,
