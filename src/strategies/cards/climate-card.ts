@@ -2,7 +2,9 @@ import { ClimateEntity } from '@smolpack/hasskit';
 import { LovelaceCardConfig } from '../../lovelace';
 
 export class ClimateCardStategy {
-  static async generate(climateEntity: ClimateEntity): Promise<LovelaceCardConfig> {
+  static async generate(
+    climateEntity: ClimateEntity
+  ): Promise<LovelaceCardConfig> {
     return {
       type: 'tile',
       entity: climateEntity.uniqueIdentifier,
@@ -12,7 +14,9 @@ export class ClimateCardStategy {
     };
   }
 
-  static async generateFeatures(climateEntity: ClimateEntity): Promise<object[]> {
+  static async generateFeatures(
+    climateEntity: ClimateEntity
+  ): Promise<object[]> {
     const features: object[] = [
       {
         type: 'climate-hvac-modes',
@@ -30,7 +34,7 @@ export class ClimateCardStategy {
 
     features.push({
       type: 'target-temperature',
-    })
+    });
 
     return features;
   }

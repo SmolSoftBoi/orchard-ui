@@ -2,7 +2,9 @@ import { Entity } from '@smolpack/hasskit';
 import { LovelaceBadgeConfig } from '../../lovelace';
 
 export class SpeakersTvsBadgeStrategy {
-  static async generate(mediaPlayerEntity: Entity): Promise<LovelaceBadgeConfig> {
+  static async generate(
+    mediaPlayerEntity: Entity
+  ): Promise<LovelaceBadgeConfig> {
     return {
       type: 'entity',
       entity: mediaPlayerEntity.uniqueIdentifier,

@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   output: {
     sourceMap: {
-      js: 'inline-cheap-source-map'
+      js: 'inline-cheap-source-map',
     },
   },
 });

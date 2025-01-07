@@ -18,7 +18,9 @@ export class FloorSectionStrategy {
     const promises = [FloorHeadingCardStrategy.generate(floor)];
 
     for (const area of floor.areas) {
-      for (const climateService of area.entitiesWithDomains(['climate']) as ClimateEntity[]) {
+      for (const climateService of area.entitiesWithDomains([
+        'climate',
+      ]) as ClimateEntity[]) {
         promises.push(ClimateCardStategy.generate(climateService));
       }
     }

@@ -65,7 +65,7 @@ export class HomeViewStrategy extends ReactiveElement {
     }
 
     if (home.c02SignalEntity) {
-      promises.push(EnergyBadgeStrategy.generate(home.c02SignalEntity))
+      promises.push(EnergyBadgeStrategy.generate(home.c02SignalEntity));
     }
 
     if (home.wasteEntity) {
