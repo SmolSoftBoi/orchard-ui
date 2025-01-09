@@ -15,29 +15,33 @@ import { SpeakersTvsBadgeStrategy } from '../badges/speakers-tvs-badge';
 import { FloorSectionStrategy } from '../sections/floor-section';
 import { WasteBadgeStrategy } from '../badges/waste-badge';
 import { EnergyBadgeStrategy } from '../badges/energy-badge';
+import { ConfigAreas, createConfigAreas, DeepPartial } from '../../utils';
 
-export type HomeViewStrategyConfig = {
-  rooms: HomeViewStrategyConfigRoom[];
-};
-
-type HomeViewStrategyConfigRoom = {
-  id: string;
-};
+export type HomeViewStrategyConfig = ConfigAreas;
 
 export class HomeViewStrategy extends ReactiveElement {
   static async generate(
-    config: Partial<HomeViewStrategyConfig>,
+    config: DeepPartial<HomeViewStrategyConfig>,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
-    const home = new Home(hass, this.config(config));
+    const home = new Home(hass, this.createConfig(config));
 
-    const promises = [this.generateBadges(home), this.generateSections(home)];
-
-    const [badges, sections] = await Promise.all(promises);
+    const [badges, sections] = await Promise.all([
+      this.generateBadges(home),
+      this.generateSections(home),
+    ]);
 
     return {
       badges,
       sections,
+    };
+  }
+
+  static createConfig(
+    partialConfig: DeepPartial<HomeViewStrategyConfig>
+  ): HomeViewStrategyConfig {
+    return {
+      ...createConfigAreas(partialConfig),
     };
   }
 
@@ -89,24 +93,6 @@ export class HomeViewStrategy extends ReactiveElement {
 
   static maxColumns(floors: Floor[]): number {
     return Math.max(floors.length, 1);
-  }
-
-  static config(
-    partialConfig: Partial<HomeViewStrategyConfig>
-  ): HomeViewStrategyConfig {
-    const config: HomeViewStrategyConfig = {
-      rooms: [],
-    };
-
-    if (partialConfig.rooms) {
-      for (const room of partialConfig.rooms.filter((room) => room.id)) {
-        config.rooms.push({
-          id: room.id,
-        });
-      }
-    }
-
-    return config;
   }
 }
 

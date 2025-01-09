@@ -723,10 +723,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@smolpack/hasskit@npm:^1.0.18":
-  version: 1.0.18
-  resolution: "@smolpack/hasskit@npm:1.0.18"
-  checksum: 10c0/6238127c8acd152142e25e2c303bad63cc252f488f25c52881f49943b3c86256aecc772d7cb16ad1f7e24f55309ec6188e7315cc23b1e5fc6356b64d52674a12
+"@smolpack/hasskit@npm:^1.0.22":
+  version: 1.0.22
+  resolution: "@smolpack/hasskit@npm:1.0.22"
+  checksum: 10c0/fa1b4b8ba3d19499a570f0f929ae9005b12e4a6ea1d2756c5719ba4c901046055653aae8e0668fc6cacd0b852418865febfd6a2f1cad2548786de4d5599c75ea
   languageName: node
   linkType: hard
 
@@ -2212,7 +2212,7 @@ __metadata:
     "@eslint/js": "npm:^9.12.0"
     "@rslib/core": "npm:^0.1.4"
     "@smolpack/eslint-config": "npm:^1.0.0"
-    "@smolpack/hasskit": "npm:^1.0.18"
+    "@smolpack/hasskit": "npm:^1.0.22"
     "@smolpack/prettier-config": "npm:^1.0.5"
     "@types/node": "npm:^22.8.1"
     eslint: "npm:^9.12.0"

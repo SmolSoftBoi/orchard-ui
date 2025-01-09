@@ -1,6 +1,8 @@
-import { Hass, HassFloorRegistryEntry } from '../../hass';
+import { AutomationEntity, Floor, Home } from '@smolpack/hasskit';
+import { HassFloorRegistryEntry } from '../../hass';
 import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../../lovelace';
 import { AutomationCardStrategy } from '../cards/automation-card';
+import { AutomationsViewStrategy } from '../views/automations-view';
 
 export type AutomationSectionStrategyConfig = {
   floor?: HassFloorRegistryEntry;
@@ -8,67 +10,57 @@ export type AutomationSectionStrategyConfig = {
 
 export class AutomationSectionStrategy {
   static async generate(
-    config: AutomationSectionStrategyConfig,
-    hass: Hass
+    home: Home,
+    floor?: Floor
   ): Promise<LovelaceSectionRawConfig> {
     return {
       type: 'grid',
-      cards: await this.generateCards(config, hass),
-      column_span: config.floor
-        ? 1
-        : Math.max(Object.keys(hass.floors).length, 1),
+      cards: await this.generateCards(home, floor),
+      column_span: AutomationsViewStrategy.maxColumns(home),
     };
   }
 
   static async generateCards(
-    config: AutomationSectionStrategyConfig,
-    hass: Hass
+    home: Home,
+    floor?: Floor
   ): Promise<LovelaceCardConfig[]> {
     const cards: LovelaceCardConfig[] = [];
 
-    const automationEntities = Object.values(hass.entities)
-      .filter((entity) => entity.entity_id.startsWith('automation.'))
-      .sort(
-        (entityA, entityB) =>
-          Date.parse(
-            hass.states[entityB.entity_id].attributes.last_triggered as string
-          ) -
-          Date.parse(
-            hass.states[entityA.entity_id].attributes.last_triggered as string
-          )
-      );
+    const automationEntities = (
+      home.entitiesWithDomains(['automation']) as AutomationEntity[]
+    ).sort(
+      (entityA, entityB) =>
+        entityA.state.lastTriggered.getDate() -
+        entityB.state.lastTriggered.getDate()
+    );
 
-    if (config.floor) {
+    if (floor) {
       cards.push({
         type: 'heading',
-        heading: config.floor.name,
-        icon: config.floor.icon || undefined,
+        heading: floor.name,
+        icon: floor.icon,
         heading_style: 'title',
       });
 
-      const areas = Object.values(hass.areas).filter(
-        (area) => area.floor_id === config.floor!.floor_id
-      );
+      for (const area of floor.areas) {
+        const areaAutomationEntities = area.entitiesWithDomains([
+          'automation',
+        ]) as AutomationEntity[];
 
-      for (const area of areas) {
-        const areaAutomations = automationEntities.filter(
-          (entity) => entity.area_id === area.area_id
-        );
-
-        if (areaAutomations.length === 0) {
+        if (areaAutomationEntities.length === 0) {
           continue;
         }
 
         cards.push({
           type: 'heading',
           heading: area.name,
-          icon: area.icon || undefined,
+          icon: area.icon,
           heading_style: 'subtitle',
         });
 
-        for (const automation of areaAutomations) {
+        for (const areaAutomationEntity of areaAutomationEntities) {
           cards.push(
-            await AutomationCardStrategy.generate({ entity: automation }, hass)
+            await AutomationCardStrategy.generate(areaAutomationEntity)
           );
         }
       }
@@ -83,14 +75,12 @@ export class AutomationSectionStrategy {
       heading_style: 'title',
     });
 
-    const noAreaAutomations = automationEntities.filter(
-      (entity) => !entity.area_id
+    const noAreaAutomationEntities = automationEntities.filter(
+      (entity) => !entity.areaIdentifier
     );
 
-    for (const automation of noAreaAutomations) {
-      cards.push(
-        await AutomationCardStrategy.generate({ entity: automation }, hass)
-      );
+    for (const automationEntity of noAreaAutomationEntities) {
+      cards.push(await AutomationCardStrategy.generate(automationEntity));
     }
 
     return cards;

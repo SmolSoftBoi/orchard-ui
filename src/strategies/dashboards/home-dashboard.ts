@@ -5,22 +5,29 @@ import { LovelaceConfig, LovelaceViewRawConfig } from '../../lovelace';
 import { AutomationsViewStrategy } from '../views/automations-view';
 import { HomeViewStrategy, HomeViewStrategyConfig } from '../views/home-view';
 import { Home } from '@smolpack/hasskit';
+import { DeepPartial } from '../../utils';
 
 export type HomeDashboardStrategyConfig = HomeViewStrategyConfig;
 
 export class HomeDashboardStrategy extends ReactiveElement {
   static async generate(
-    partialConfig: Partial<HomeDashboardStrategyConfig>,
+    partialConfig: DeepPartial<HomeDashboardStrategyConfig>,
     hass: Hass
   ): Promise<LovelaceConfig> {
-    const config = this.config(partialConfig);
-    const home = new Home(hass, this.config(config));
+    const config = this.createConfig(partialConfig);
+    const home = new Home(hass, config);
 
     console.info('Orchard UI', 'Home Dashboard', 'Home', home);
 
     return {
       views: await this.generateViews(home, config),
     };
+  }
+
+  static createConfig(
+    partialConfig: DeepPartial<HomeDashboardStrategyConfig>
+  ): HomeDashboardStrategyConfig {
+    return HomeViewStrategy.createConfig(partialConfig);
   }
 
   static async generateViews(
@@ -46,6 +53,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
         max_columns: AutomationsViewStrategy.maxColumns(home),
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-automations`,
+          ...config,
         },
       },
       {
@@ -55,6 +63,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
         icon: 'mdi:fan',
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-climate`,
+          ...config,
         },
       },
       {
@@ -64,6 +73,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
         icon: 'mdi:lightbulb-group',
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-lights`,
+          ...config,
         },
       },
       {
@@ -73,6 +83,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
         icon: 'mdi:lock',
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-security`,
+          ...config,
         },
       },
       {
@@ -82,29 +93,12 @@ export class HomeDashboardStrategy extends ReactiveElement {
         icon: 'mdi:television-speaker',
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-speakers-tvs`,
+          ...config,
         },
       },
     ];
 
     return views;
-  }
-
-  static config(
-    partialConfig: Partial<HomeDashboardStrategyConfig>
-  ): HomeDashboardStrategyConfig {
-    const config: HomeDashboardStrategyConfig = {
-      rooms: [],
-    };
-
-    if (partialConfig.rooms) {
-      for (const room of partialConfig.rooms.filter((room) => room.id)) {
-        config.rooms.push({
-          id: room.id,
-        });
-      }
-    }
-
-    return config;
   }
 }
 

@@ -8,39 +8,47 @@ import {
 import { Hass } from '../../hass';
 import { AutomationSectionStrategy } from '../sections/automations-section';
 import { Home } from '@smolpack/hasskit';
+import { ConfigAreas, createConfigAreas } from '../../utils';
+
+export type AutomationsViewStrategyConfig = ConfigAreas;
 
 export class AutomationsViewStrategy extends ReactiveElement {
   static async generate(
-    config: object,
+    partialConfig: AutomationsViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceViewConfig> {
+    const config = this.createConfig(partialConfig);
+    const home = new Home(hass, config);
+
     const view: LovelaceViewConfig = {
-      badges: await this.generateBadges(config, hass),
-      sections: await this.generateSections(config, hass),
+      badges: await this.generateBadges(),
+      sections: await this.generateSections(home),
     };
 
     return view;
   }
 
-  static async generateBadges(
-    config: object,
-    hass: Hass
-  ): Promise<LovelaceBadgeConfig[]> {
+  static createConfig(
+    partialConfig: AutomationsViewStrategyConfig
+  ): AutomationsViewStrategyConfig {
+    return {
+      ...createConfigAreas(partialConfig),
+    };
+  }
+
+  static async generateBadges(): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
   static async generateSections(
-    config: object,
-    hass: Hass
+    home: Home
   ): Promise<LovelaceSectionRawConfig[]> {
     const sections: LovelaceSectionRawConfig = [
-      await AutomationSectionStrategy.generate({}, hass),
+      await AutomationSectionStrategy.generate(home),
     ];
 
-    for (const floor of Object.values(hass.floors)) {
-      sections.push(
-        await AutomationSectionStrategy.generate({ floor: floor }, hass)
-      );
+    for (const floor of home.floors) {
+      sections.push(await AutomationSectionStrategy.generate(home, floor));
     }
 
     return sections;

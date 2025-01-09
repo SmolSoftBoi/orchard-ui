@@ -6,7 +6,7 @@ export class ClimateBadgeStrategy {
     return {
       type: 'entity',
       entity: climateEntity.uniqueIdentifier,
-      name: 'Climate',
+      name: climateEntity.name,
       icon: 'mdi:fan',
       show_name: true,
     };
