@@ -8,7 +8,7 @@ export class SpeakersTvsBadgeStrategy {
     return {
       type: 'entity',
       entity: mediaPlayerEntity.uniqueIdentifier,
-      name: 'Speakers & TVs',
+      name: mediaPlayerEntity.name,
       icon: 'mdi:television-speaker',
       show_name: true,
       visibility: [
