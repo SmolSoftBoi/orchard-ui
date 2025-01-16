@@ -1,10 +1,5 @@
 import { AutomationEntity } from '@smolpack/hasskit';
-import { HassEntityRegistryDisplayEntry } from '../../hass';
 import { LovelaceCardConfig } from '../../lovelace';
-
-export type AutomationCardStrategyConfig = {
-  entity: HassEntityRegistryDisplayEntry;
-};
 
 export class AutomationCardStrategy {
   static async generate(

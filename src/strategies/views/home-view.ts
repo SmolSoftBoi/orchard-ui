@@ -16,6 +16,7 @@ import { FloorSectionStrategy } from '../sections/floor-section';
 import { WasteBadgeStrategy } from '../badges/waste-badge';
 import { EnergyBadgeStrategy } from '../badges/energy-badge';
 import { ConfigAreas, createConfigAreas, DeepPartial } from '../../utils';
+import { CamerasSectionStrategy } from '../sections/cameras-section';
 
 export type HomeViewStrategyConfig = ConfigAreas;
 
@@ -83,6 +84,12 @@ export class HomeViewStrategy extends ReactiveElement {
     home: Home
   ): Promise<LovelaceSectionRawConfig[]> {
     const promises = [];
+
+    const cameraEntities = home.entitiesWithDomains(['camera']);
+
+    if (cameraEntities.length > 0) {
+      promises.push(CamerasSectionStrategy.generate(home, cameraEntities));
+    }
 
     for (const floor of home.floors) {
       promises.push(FloorSectionStrategy.generate(floor));

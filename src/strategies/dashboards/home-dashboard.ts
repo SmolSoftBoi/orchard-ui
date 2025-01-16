@@ -1,5 +1,5 @@
 import { ReactiveElement } from 'lit';
-import { CUSTOM_ELEMENT_NAME } from '../../config';
+import { CUSTOM_ELEMENT_NAME, NAME } from '../../config';
 import { Hass } from '../../hass';
 import { LovelaceConfig, LovelaceViewRawConfig } from '../../lovelace';
 import { AutomationsViewStrategy } from '../views/automations-view';
@@ -10,6 +10,8 @@ import { DeepPartial } from '../../utils';
 export type HomeDashboardStrategyConfig = HomeViewStrategyConfig;
 
 export class HomeDashboardStrategy extends ReactiveElement {
+  static logPrefix = `${NAME} - Home Dashboard Strategy`;
+
   static async generate(
     partialConfig: DeepPartial<HomeDashboardStrategyConfig>,
     hass: Hass
@@ -17,7 +19,8 @@ export class HomeDashboardStrategy extends ReactiveElement {
     const config = this.createConfig(partialConfig);
     const home = new Home(hass, config);
 
-    console.info('Orchard UI', 'Home Dashboard', 'Home', home);
+    console.info(this.logPrefix, 'Config', config);
+    console.info(this.logPrefix, 'Home', home);
 
     return {
       views: await this.generateViews(home, config),
@@ -60,7 +63,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
         type: 'sections',
         title: 'Climate',
         path: 'climate',
-        icon: 'mdi:fan',
+        icon: home.climateEntity?.icon || 'mdi:fan',
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-climate`,
           ...config,
@@ -70,7 +73,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
         type: 'sections',
         title: 'Lights',
         path: 'lights',
-        icon: 'mdi:lightbulb-group',
+        icon: home.lightEntity?.icon || 'mdi:lightbulb-group',
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-lights`,
           ...config,
@@ -80,7 +83,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
         type: 'sections',
         title: 'Security',
         path: 'security',
-        icon: 'mdi:lock',
+        icon: home.lockEntity?.icon || 'mdi:lock',
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-security`,
           ...config,
@@ -90,7 +93,7 @@ export class HomeDashboardStrategy extends ReactiveElement {
         type: 'sections',
         title: 'Speakers & TVs',
         path: 'speakers-tvs',
-        icon: 'mdi:television-speaker',
+        icon: home.mediaPlayerEntity?.icon || 'mdi:television-speaker',
         strategy: {
           type: `custom:${CUSTOM_ELEMENT_NAME}-speakers-tvs`,
           ...config,

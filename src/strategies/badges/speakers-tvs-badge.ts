@@ -9,7 +9,7 @@ export class SpeakersTvsBadgeStrategy {
       type: 'entity',
       entity: mediaPlayerEntity.uniqueIdentifier,
       name: mediaPlayerEntity.name,
-      icon: 'mdi:television-speaker',
+      icon: mediaPlayerEntity.icon || 'mdi:television-speaker',
       show_name: true,
       visibility: [
         {

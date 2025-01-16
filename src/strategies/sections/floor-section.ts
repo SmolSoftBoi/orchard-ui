@@ -5,6 +5,7 @@ import { FloorHeadingCardStrategy } from '../cards/floor-heading-card';
 import { LightCardStrategy } from '../cards/light-card';
 import { SecurityCardStrategy } from '../cards/security-card';
 import { SpeakerTvCardStrategy } from '../cards/speaker-tv-card';
+import { SwitchCardStrategy } from '../cards/switch-card';
 
 export class FloorSectionStrategy {
   static async generate(floor: Floor): Promise<LovelaceSectionRawConfig> {
@@ -55,6 +56,18 @@ export class FloorSectionStrategy {
       if (mediaPlayerEntities) {
         for (const mediaPlayerEntity of mediaPlayerEntities) {
           promises.push(SpeakerTvCardStrategy.generate(mediaPlayerEntity));
+        }
+      }
+    }
+
+    for (const room of floor.rooms) {
+      const switchEntities = room
+        .entitiesWithDomains(['switch'])
+        .filter((entity) => !entity.hidden);
+
+      if (switchEntities) {
+        for (const switchEntity of switchEntities) {
+          promises.push(SwitchCardStrategy.generate(switchEntity));
         }
       }
     }

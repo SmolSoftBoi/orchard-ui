@@ -6,7 +6,7 @@ export class SecurityBadgeStrategy {
       type: 'entity',
       entity: securityEntity.uniqueIdentifier,
       name: securityEntity.name,
-      icon: 'mdi:lock',
+      icon: securityEntity.icon || 'mdi:lock',
       show_name: true,
       state_content: ['state'],
     };

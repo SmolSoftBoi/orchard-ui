@@ -6,8 +6,8 @@ export class EnergyBadgeStrategy {
     return {
       type: 'entity',
       entity: c02SignalEntity.uniqueIdentifier,
-      name: 'Energy',
-      icon: 'mdi:lightning-bolt',
+      name: c02SignalEntity.name,
+      icon: c02SignalEntity.icon || 'mdi:lightning-bolt',
       color: 'light-green',
       show_name: true,
     };

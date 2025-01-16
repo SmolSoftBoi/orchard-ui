@@ -1,18 +1,9 @@
 import { Floor } from '@smolpack/hasskit';
-import { HassFloorRegistryEntry } from '../../hass';
 import { LovelaceBadgeConfig, LovelaceCardConfig } from '../../lovelace';
 import { ClimateBadgeStrategy } from '../badges/climate-badge';
 import { LightsBadgeStrategy } from '../badges/lights-badge';
 import { SecurityBadgeStrategy } from '../badges/security-badge';
 import { SpeakersTvsBadgeStrategy } from '../badges/speakers-tvs-badge';
-
-export type FloorHeadingCardStretegyConfig = {
-  floor: HassFloorRegistryEntry;
-};
-
-export type FloorHeadingCardsStrategyBadgesConfig = {
-  floor: HassFloorRegistryEntry;
-};
 
 export class FloorHeadingCardStrategy {
   static async generate(floor: Floor): Promise<LovelaceCardConfig> {
