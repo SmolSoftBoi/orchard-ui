@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
-    "@rslib/core": "^0.3.2",
+    "@rslib/core": "^0.5.5",
     "@smolpack/eslint-config": "^1.0.0",
     "@smolpack/hasskit": "^1.0.31",
     "@smolpack/prettier-config": "^1.0.5",
