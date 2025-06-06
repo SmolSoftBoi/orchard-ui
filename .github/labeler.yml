@@ -11,6 +11,7 @@ config:
   - 'rslib.config.ts'
   - 'eslint.config.*'
   - 'yarn.lock'
+  - '.github/labeler.yml'
 
 docs:
   - '**/*.md'
