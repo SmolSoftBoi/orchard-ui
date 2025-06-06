@@ -1,0 +1,16 @@
+frontend:
+  - 'src/**/*'
+  - 'public/**/*'
+
+workflow:
+  - '.github/workflows/*'
+
+config:
+  - 'package.json'
+  - 'tsconfig.json'
+  - 'rslib.config.ts'
+  - 'eslint.config.*'
+  - 'yarn.lock'
+
+docs:
+  - '**/*.md'
