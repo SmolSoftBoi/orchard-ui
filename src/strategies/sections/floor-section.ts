@@ -7,7 +7,16 @@ import { SecurityCardStrategy } from '../cards/security-card';
 import { SpeakerTvCardStrategy } from '../cards/speaker-tv-card';
 import { SwitchCardStrategy } from '../cards/switch-card';
 
+/**
+ * Build a section summarizing an entire floor.
+ */
 export class FloorSectionStrategy {
+  /**
+   * Generate a Lovelace section for the provided floor.
+   *
+   * @param floor - Floor to render.
+   * @returns The section configuration.
+   */
   static async generate(floor: Floor): Promise<LovelaceSectionRawConfig> {
     return {
       type: 'grid',
@@ -15,6 +24,12 @@ export class FloorSectionStrategy {
     };
   }
 
+  /**
+   * Create all cards belonging to the floor section.
+   *
+   * @param floor - Floor context.
+   * @returns A list of cards.
+   */
   static async generateCards(floor: Floor): Promise<LovelaceCardConfig[]> {
     const promises = [FloorHeadingCardStrategy.generate(floor)];
 

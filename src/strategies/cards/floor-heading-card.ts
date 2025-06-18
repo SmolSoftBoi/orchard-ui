@@ -5,7 +5,16 @@ import { LightsBadgeStrategy } from '../badges/lights-badge';
 import { SecurityBadgeStrategy } from '../badges/security-badge';
 import { SpeakersTvsBadgeStrategy } from '../badges/speakers-tvs-badge';
 
+/**
+ * Strategy for heading cards that introduce a floor.
+ */
 export class FloorHeadingCardStrategy {
+  /**
+   * Generate the heading card for a floor.
+   *
+   * @param floor - The floor to represent.
+   * @returns The card configuration.
+   */
   static async generate(floor: Floor): Promise<LovelaceCardConfig> {
     return {
       type: 'heading',
@@ -19,6 +28,12 @@ export class FloorHeadingCardStrategy {
     };
   }
 
+  /**
+   * Build floor level badges for the heading card.
+   *
+   * @param floor - The floor to render.
+   * @returns List of badges to show.
+   */
   static async generateBadges(floor: Floor): Promise<LovelaceBadgeConfig[]> {
     const promises = [];
 

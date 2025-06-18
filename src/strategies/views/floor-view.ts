@@ -11,10 +11,20 @@ type FloorViewStrategyConfig = {
   floor_id?: string;
 };
 
+/**
+ * Strategy for rendering a single floor view.
+ */
 export class FloorViewStrategy extends ReactiveElement {
+  /**
+   * Build the view representing one floor.
+   *
+   * @param config - View configuration.
+   * @param hass - Home Assistant instance.
+   * @returns The view configuration.
+   */
   static async generate(
     config: FloorViewStrategyConfig,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceViewConfig> {
     if (!config.floor_id) {
       return {};
@@ -28,18 +38,32 @@ export class FloorViewStrategy extends ReactiveElement {
     return view;
   }
 
+  /**
+   * Generate badges shown at the top of the floor view.
+   *
+   * @param config - View configuration.
+   * @param hass - Home Assistant instance.
+   * @returns Badge configuration array.
+   */
   static async generateBadges(
     config: FloorViewStrategyConfig,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceBadgeConfig[]> {
     void config;
     void hass;
     return [];
   }
 
+  /**
+   * Build the sections for the floor view.
+   *
+   * @param config - View configuration.
+   * @param hass - Home Assistant instance.
+   * @returns Section configuration array.
+   */
   static async generateSections(
     config: FloorViewStrategyConfig,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceSectionRawConfig[]> {
     void config;
     void hass;

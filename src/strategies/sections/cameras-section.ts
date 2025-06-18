@@ -3,10 +3,20 @@ import { LovelaceCardConfig, LovelaceSectionRawConfig } from '../../lovelace';
 import { CameraCardStrategy } from '../cards/camera-card';
 import { HomeViewStrategy } from '../views/home-view';
 
+/**
+ * Render a section listing all camera entities.
+ */
 export class CamerasSectionStrategy {
+  /**
+   * Build the camera section.
+   *
+   * @param home - The home representation.
+   * @param cameraEntities - List of camera entities to show.
+   * @returns Section configuration.
+   */
   static async generate(
     home: Home,
-    cameraEntities: Entity[]
+    cameraEntities: Entity[],
   ): Promise<LovelaceSectionRawConfig> {
     return {
       type: 'grid',
@@ -15,8 +25,14 @@ export class CamerasSectionStrategy {
     };
   }
 
+  /**
+   * Create the camera cards for the section.
+   *
+   * @param cameraEntities - Cameras to display.
+   * @returns Array of camera cards.
+   */
   static async generateCards(
-    cameraEntities: Entity[]
+    cameraEntities: Entity[],
   ): Promise<LovelaceCardConfig[]> {
     const cards: LovelaceCardConfig[] = [
       {

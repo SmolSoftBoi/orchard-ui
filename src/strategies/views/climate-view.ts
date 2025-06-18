@@ -8,10 +8,20 @@ import {
 import { Hass } from '../../hass';
 import { Home } from '@smolpack/hasskit';
 
+/**
+ * View strategy for displaying climate devices.
+ */
 export class ClimateViewStrategy extends ReactiveElement {
+  /**
+   * Build the climate view configuration.
+   *
+   * @param config - View configuration object.
+   * @param hass - Home Assistant instance.
+   * @returns The view configuration.
+   */
   static async generate(
     config: object,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceViewConfig> {
     const home = new Home(hass);
 
@@ -25,13 +35,25 @@ export class ClimateViewStrategy extends ReactiveElement {
     };
   }
 
+  /**
+   * Generate badges for the climate view.
+   *
+   * @param home - Representation of the home.
+   * @returns Array of badge configs.
+   */
   static async generateBadges(home: Home): Promise<LovelaceBadgeConfig[]> {
     void home;
     return [];
   }
 
+  /**
+   * Build the sections for the climate view.
+   *
+   * @param home - Representation of the home.
+   * @returns Section configuration array.
+   */
   static async generateSections(
-    home: Home
+    home: Home,
   ): Promise<LovelaceSectionRawConfig[]> {
     void home;
     return [];

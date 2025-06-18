@@ -11,10 +11,20 @@ type RoomViewStrategyConfig = {
   area_id?: string;
 };
 
+/**
+ * Strategy to show devices and information for a single room.
+ */
 export class RoomViewStrategy extends ReactiveElement {
+  /**
+   * Build the room view.
+   *
+   * @param config - Room view configuration.
+   * @param hass - Home Assistant instance.
+   * @returns Lovelace view configuration.
+   */
   static async generate(
     config: RoomViewStrategyConfig,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceViewConfig> {
     const view: LovelaceViewConfig = {
       badges: await this.generateBadges(config, hass),
@@ -24,18 +34,32 @@ export class RoomViewStrategy extends ReactiveElement {
     return view;
   }
 
+  /**
+   * Create badges for the room view.
+   *
+   * @param config - Room view configuration.
+   * @param hass - Home Assistant instance.
+   * @returns Array of badge configs.
+   */
   static async generateBadges(
     config: RoomViewStrategyConfig,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceBadgeConfig[]> {
     void config;
     void hass;
     return [];
   }
 
+  /**
+   * Build the sections for the room view.
+   *
+   * @param config - Room view configuration.
+   * @param hass - Home Assistant instance.
+   * @returns Section configuration list.
+   */
   static async generateSections(
     config: RoomViewStrategyConfig,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceSectionRawConfig[]> {
     void config;
     void hass;

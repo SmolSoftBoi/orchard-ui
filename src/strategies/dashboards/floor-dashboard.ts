@@ -17,10 +17,20 @@ type FloorDashboardStrategyConfigArea = {
   area_id?: string;
 };
 
+/**
+ * Strategy for dashboards that focus on a single floor.
+ */
 export class FloorDashboardStrategy extends ReactiveElement {
+  /**
+   * Build the dashboard configuration for one floor.
+   *
+   * @param config - The user provided config.
+   * @param hass - Home Assistant instance.
+   * @returns The Lovelace configuration object.
+   */
   static async generate(
     config: FloorDashboardStrategyConfig,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceConfig> {
     if (!config.floor_id) {
       return {
@@ -44,9 +54,16 @@ export class FloorDashboardStrategy extends ReactiveElement {
     };
   }
 
+  /**
+   * Create the views for each room on a floor.
+   *
+   * @param config - Floor and optional area configuration.
+   * @param hass - Home Assistant instance.
+   * @returns Array of view configurations.
+   */
   static async generateViews(
     config: FloorDashboardStrategyViewsConfig,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceViewRawConfig[]> {
     const floor = config.floor;
 
