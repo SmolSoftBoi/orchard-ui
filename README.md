@@ -38,7 +38,7 @@ The plugin can be installed manually or through **HACS**.
 
 ### Manual Installation
 
-1. Run `yarn build` and copy `dist/index.js` to
+1. Run `yarn build` and copy `dist/orchard-ui.js` to
    `<config>/www/orchard-ui.js` on your Home Assistant instance.
 2. In **Settings → Dashboards → Resources** add `/local/orchard-ui.js` as a
    module.
