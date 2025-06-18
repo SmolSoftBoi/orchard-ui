@@ -28,6 +28,8 @@ export class RoomViewStrategy extends ReactiveElement {
     config: RoomViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
+    void config;
+    void hass;
     return [];
   }
 
@@ -35,6 +37,8 @@ export class RoomViewStrategy extends ReactiveElement {
     config: RoomViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
+    void config;
+    void hass;
     return [];
   }
 }

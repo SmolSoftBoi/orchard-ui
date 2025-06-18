@@ -32,6 +32,8 @@ export class FloorViewStrategy extends ReactiveElement {
     config: FloorViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
+    void config;
+    void hass;
     return [];
   }
 
@@ -39,6 +41,8 @@ export class FloorViewStrategy extends ReactiveElement {
     config: FloorViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
+    void config;
+    void hass;
     return [];
   }
 }

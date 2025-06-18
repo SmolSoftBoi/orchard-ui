@@ -26,12 +26,14 @@ export class ClimateViewStrategy extends ReactiveElement {
   }
 
   static async generateBadges(home: Home): Promise<LovelaceBadgeConfig[]> {
+    void home;
     return [];
   }
 
   static async generateSections(
     home: Home
   ): Promise<LovelaceSectionRawConfig[]> {
+    void home;
     return [];
   }
 }
