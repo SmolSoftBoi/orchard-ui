@@ -5,10 +5,10 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/orchard-ui.js"
     }
   },
-  "module": "./dist/index.js",
+  "module": "./dist/orchard-ui.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

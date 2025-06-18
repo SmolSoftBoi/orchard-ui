@@ -1,7 +1,8 @@
 {
   "name": "Orchard UI",
   "render_readme": true,
-  "filename": "dist/index.js",
+  "content_in_root": false,
+  "filename": "dist/orchard-ui.js",
   "type": "plugin",
   "description": "Custom strategies for Home Assistant dashboards."
 }
