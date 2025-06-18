@@ -27,6 +27,8 @@ export class LightsViewStrategy extends ReactiveElement {
     config: object,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
+    void config;
+    void hass;
     return [];
   }
 
@@ -34,6 +36,8 @@ export class LightsViewStrategy extends ReactiveElement {
     config: object,
     hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
+    void config;
+    void hass;
     return [];
   }
 }

@@ -7,7 +7,7 @@ import {
 } from '../../lovelace';
 import { Hass } from '../../hass';
 
-type SpeakersTvsViewStrategyConfig = {};
+type SpeakersTvsViewStrategyConfig = Record<string, never>;
 
 export class SpeakersTvsViewStrategy extends ReactiveElement {
   static async generate(
@@ -26,6 +26,8 @@ export class SpeakersTvsViewStrategy extends ReactiveElement {
     config: SpeakersTvsViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceBadgeConfig[]> {
+    void config;
+    void hass;
     return [];
   }
 
@@ -33,6 +35,8 @@ export class SpeakersTvsViewStrategy extends ReactiveElement {
     config: SpeakersTvsViewStrategyConfig,
     hass: Hass
   ): Promise<LovelaceSectionRawConfig[]> {
+    void config;
+    void hass;
     return [];
   }
 }
