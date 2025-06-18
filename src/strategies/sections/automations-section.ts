@@ -8,10 +8,20 @@ export type AutomationSectionStrategyConfig = {
   floor?: HassFloorRegistryEntry;
 };
 
+/**
+ * Display available automations grouped by area or floor.
+ */
 export class AutomationSectionStrategy {
+  /**
+   * Build the section configuration.
+   *
+   * @param home - The home instance.
+   * @param floor - Optional floor filter.
+   * @returns Lovelace section configuration.
+   */
   static async generate(
     home: Home,
-    floor?: Floor
+    floor?: Floor,
   ): Promise<LovelaceSectionRawConfig> {
     return {
       type: 'grid',
@@ -20,9 +30,16 @@ export class AutomationSectionStrategy {
     };
   }
 
+  /**
+   * Create the list of automation cards.
+   *
+   * @param home - The home instance.
+   * @param floor - Optional floor context.
+   * @returns List of card configs.
+   */
   static async generateCards(
     home: Home,
-    floor?: Floor
+    floor?: Floor,
   ): Promise<LovelaceCardConfig[]> {
     const cards: LovelaceCardConfig[] = [];
 

@@ -1,9 +1,18 @@
 import { Entity } from '@smolpack/hasskit';
 import { LovelaceCardConfig } from '../../lovelace';
 
+/**
+ * Build tiles for media player control.
+ */
 export class SpeakerTvCardStrategy {
+  /**
+   * Create a tile for a speaker or TV entity.
+   *
+   * @param mediaPlayerEntity - The media player to render.
+   * @returns The card configuration.
+   */
   static async generate(
-    mediaPlayerEntity: Entity
+    mediaPlayerEntity: Entity,
   ): Promise<LovelaceCardConfig> {
     return {
       type: 'tile',

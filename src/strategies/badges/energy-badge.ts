@@ -6,7 +6,10 @@ import { LovelaceBadgeConfig } from '../../lovelace';
  */
 export class EnergyBadgeStrategy {
   /**
-   * Builds the Lovelace badge configuration for energy usage.
+   * Build the Lovelace badge configuration for energy usage.
+   *
+   * @param co2SignalEntity - The entity that tracks CO₂ signal.
+   * @returns The badge configuration.
    */
   static async generate(co2SignalEntity: Entity): Promise<LovelaceBadgeConfig> {
     return {

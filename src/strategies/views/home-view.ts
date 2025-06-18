@@ -20,10 +20,20 @@ import { CamerasSectionStrategy } from '../sections/cameras-section';
 
 export type HomeViewStrategyConfig = ConfigAreas;
 
+/**
+ * Strategy for the main home view containing floors and system badges.
+ */
 export class HomeViewStrategy extends ReactiveElement {
+  /**
+   * Build the view configuration.
+   *
+   * @param config - User provided partial config.
+   * @param hass - Home Assistant connection.
+   * @returns The Lovelace view configuration.
+   */
   static async generate(
     config: DeepPartial<HomeViewStrategyConfig>,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceViewConfig> {
     const home = new Home(hass, this.createConfig(config));
 
@@ -38,14 +48,26 @@ export class HomeViewStrategy extends ReactiveElement {
     };
   }
 
+  /**
+   * Resolve defaults for the view configuration.
+   *
+   * @param partialConfig - Partial configuration.
+   * @returns Completed configuration.
+   */
   static createConfig(
-    partialConfig: DeepPartial<HomeViewStrategyConfig>
+    partialConfig: DeepPartial<HomeViewStrategyConfig>,
   ): HomeViewStrategyConfig {
     return {
       ...createConfigAreas(partialConfig),
     };
   }
 
+  /**
+   * Generate all badges shown on the home view.
+   *
+   * @param home - The home instance.
+   * @returns Array of badge configs.
+   */
   static async generateBadges(home: Home): Promise<LovelaceBadgeConfig[]> {
     const promises = [];
 
@@ -80,8 +102,14 @@ export class HomeViewStrategy extends ReactiveElement {
     return [...(await Promise.all(promises))];
   }
 
+  /**
+   * Generate the sections for each floor and camera group.
+   *
+   * @param home - Home context.
+   * @returns List of section configs.
+   */
   static async generateSections(
-    home: Home
+    home: Home,
   ): Promise<LovelaceSectionRawConfig[]> {
     const promises = [];
 
@@ -98,6 +126,12 @@ export class HomeViewStrategy extends ReactiveElement {
     return [...(await Promise.all(promises))];
   }
 
+  /**
+   * Determine the maximum number of columns allowed.
+   *
+   * @param floors - Floors within the home.
+   * @returns The number of columns.
+   */
   static maxColumns(floors: Floor[]): number {
     return Math.max(floors.length, 1);
   }

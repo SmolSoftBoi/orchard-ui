@@ -12,10 +12,20 @@ import { ConfigAreas, createConfigAreas } from '../../utils';
 
 export type AutomationsViewStrategyConfig = ConfigAreas;
 
+/**
+ * Show automations grouped by floor and area.
+ */
 export class AutomationsViewStrategy extends ReactiveElement {
+  /**
+   * Build the automations view.
+   *
+   * @param partialConfig - Partial configuration from the dashboard.
+   * @param hass - Home Assistant instance.
+   * @returns Lovelace view configuration.
+   */
   static async generate(
     partialConfig: AutomationsViewStrategyConfig,
-    hass: Hass
+    hass: Hass,
   ): Promise<LovelaceViewConfig> {
     const config = this.createConfig(partialConfig);
     const home = new Home(hass, config);
@@ -28,20 +38,37 @@ export class AutomationsViewStrategy extends ReactiveElement {
     return view;
   }
 
+  /**
+   * Normalize the automations view config.
+   *
+   * @param partialConfig - Partial configuration.
+   * @returns Completed configuration.
+   */
   static createConfig(
-    partialConfig: AutomationsViewStrategyConfig
+    partialConfig: AutomationsViewStrategyConfig,
   ): AutomationsViewStrategyConfig {
     return {
       ...createConfigAreas(partialConfig),
     };
   }
 
+  /**
+   * Currently there are no badges for the automations view.
+   *
+   * @returns Empty array of badges.
+   */
   static async generateBadges(): Promise<LovelaceBadgeConfig[]> {
     return [];
   }
 
+  /**
+   * Create automation sections for home and each floor.
+   *
+   * @param home - Home context.
+   * @returns Array of section configs.
+   */
   static async generateSections(
-    home: Home
+    home: Home,
   ): Promise<LovelaceSectionRawConfig[]> {
     const sections: LovelaceSectionRawConfig = [
       await AutomationSectionStrategy.generate(home),
@@ -54,6 +81,12 @@ export class AutomationsViewStrategy extends ReactiveElement {
     return sections;
   }
 
+  /**
+   * Determine column count for the view grid.
+   *
+   * @param home - Home context.
+   * @returns Number of columns.
+   */
   static maxColumns(home: Home): number {
     let maxColumns = 1;
 

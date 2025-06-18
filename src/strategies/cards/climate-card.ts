@@ -1,9 +1,18 @@
 import { ClimateEntity } from '@smolpack/hasskit';
 import { LovelaceCardConfig } from '../../lovelace';
 
-export class ClimateCardStategy {
+/**
+ * Render controls for climate devices.
+ */
+export class ClimateCardStrategy {
+  /**
+   * Build a climate control card.
+   *
+   * @param climateEntity - The climate entity to control.
+   * @returns The Lovelace card configuration.
+   */
   static async generate(
-    climateEntity: ClimateEntity
+    climateEntity: ClimateEntity,
   ): Promise<LovelaceCardConfig> {
     return {
       type: 'tile',
@@ -14,8 +23,14 @@ export class ClimateCardStategy {
     };
   }
 
+  /**
+   * Build a list of features for the climate card.
+   *
+   * @param climateEntity - The climate entity to inspect.
+   * @returns The features to enable.
+   */
   static async generateFeatures(
-    climateEntity: ClimateEntity
+    climateEntity: ClimateEntity,
   ): Promise<object[]> {
     const features: object[] = [
       {
