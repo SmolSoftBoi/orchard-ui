@@ -4,7 +4,7 @@ import { LovelaceCardConfig } from '../../lovelace';
 /**
  * Render controls for climate devices.
  */
-export class ClimateCardStategy {
+export class ClimateCardStrategy {
   /**
    * Build a climate control card.
    *
