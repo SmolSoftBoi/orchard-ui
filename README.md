@@ -24,6 +24,12 @@ Build the production bundle:
 yarn build
 ```
 
+## Dev Container
+
+Open the repository in a dev container to get a ready to use environment.
+The container installs Node.js and Yarn automatically and runs `yarn install`
+after creation.
+
 ## Testing
 
 Execute the unit tests with:
