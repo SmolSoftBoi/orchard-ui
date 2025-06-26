@@ -1,0 +1,16 @@
+{
+  "name": "Orchard UI",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+  "features": {
+    "ghcr.io/devcontainers/features/yarn:1": {}
+  },
+  "postCreateCommand": "yarn install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}

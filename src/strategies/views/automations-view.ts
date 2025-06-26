@@ -1,4 +1,5 @@
 import { ReactiveElement } from 'lit';
+import { Home } from '@smolpack/hasskit';
 import { CUSTOM_ELEMENT_NAME } from '../../config';
 import {
   LovelaceBadgeConfig,
@@ -7,7 +8,6 @@ import {
 } from '../../lovelace';
 import { Hass } from '../../hass';
 import { AutomationSectionStrategy } from '../sections/automations-section';
-import { Home } from '@smolpack/hasskit';
 import { ConfigAreas, createConfigAreas } from '../../utils';
 
 export type AutomationsViewStrategyConfig = ConfigAreas;
@@ -70,7 +70,7 @@ export class AutomationsViewStrategy extends ReactiveElement {
   static async generateSections(
     home: Home,
   ): Promise<LovelaceSectionRawConfig[]> {
-    const sections: LovelaceSectionRawConfig = [
+    const sections: LovelaceSectionRawConfig[] = [
       await AutomationSectionStrategy.generate(home),
     ];
 
@@ -95,7 +95,7 @@ export class AutomationsViewStrategy extends ReactiveElement {
         const areaAutomationEntities = area.entitiesWithDomains(['automation']);
 
         if (areaAutomationEntities.length > 0) {
-          maxColumns = maxColumns++;
+          maxColumns += 1;
           break;
         }
       }
