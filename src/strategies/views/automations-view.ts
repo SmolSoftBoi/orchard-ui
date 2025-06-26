@@ -95,7 +95,7 @@ export class AutomationsViewStrategy extends ReactiveElement {
         const areaAutomationEntities = area.entitiesWithDomains(['automation']);
 
         if (areaAutomationEntities.length > 0) {
-          maxColumns = maxColumns++;
+          maxColumns += 1;
           break;
         }
       }
