@@ -13,6 +13,7 @@
     "types": ["vitest/importMeta"]
   },
   "include": ["src"],
+  "exclude": ["**/*.test.ts"],
   "plugins": [
     {
       "name": "ts-lit-plugin",
