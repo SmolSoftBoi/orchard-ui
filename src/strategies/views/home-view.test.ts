@@ -1,4 +1,6 @@
 import { describe, expect, test, vi } from 'vitest';
+import type { Hass } from '../../hass';
+import type { Floor } from '@smolpack/hasskit';
 
 vi.mock('@smolpack/hasskit', () => ({
   Home: class {
@@ -10,7 +12,7 @@ vi.mock('@smolpack/hasskit', () => ({
     mediaPlayerEntity = undefined;
     co2SignalEntity = undefined;
     wasteEntity = undefined;
-    constructor(_hass: unknown, _config?: unknown) {}
+    constructor() {}
     entitiesWithDomains() { return []; }
   },
   Floor: class {},
@@ -20,11 +22,11 @@ import { HomeViewStrategy } from './home-view';
 
 describe('HomeViewStrategy.generate', () => {
   test('returns empty badges and sections when no entities', async () => {
-    const config = await HomeViewStrategy.generate({}, {} as any);
+    const config = await HomeViewStrategy.generate({}, {} as Hass);
     expect(config).toEqual({ badges: [], sections: [] });
   });
 
   test('maxColumns equals number of floors', () => {
-    expect(HomeViewStrategy.maxColumns([{}, {}] as any)).toBe(2);
+    expect(HomeViewStrategy.maxColumns([{}, {}] as unknown as Floor[])).toBe(2);
   });
 });

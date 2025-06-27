@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { CUSTOM_ELEMENT_NAME } from '../../config';
+import type { Hass } from '../../hass';
 import { FloorDashboardStrategy } from './floor-dashboard';
 
 const hass = {
@@ -10,7 +11,7 @@ const hass = {
     a1: { area_id: 'a1', floor_id: 'f1', name: 'Kitchen' },
     a2: { area_id: 'a2', floor_id: 'f1', name: 'Living' },
   },
-} as any;
+} as unknown as Hass;
 
 describe('FloorDashboardStrategy.generate', () => {
   test('returns views for a given floor', async () => {

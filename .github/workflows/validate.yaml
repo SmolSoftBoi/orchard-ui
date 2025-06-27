@@ -11,7 +11,16 @@ jobs:
   validate-hacs:
     runs-on: 'ubuntu-latest'
     steps:
-      - name: HACS validation
-        uses: 'hacs/action@main'
+      - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
+      - uses: actions/setup-node@v4
         with:
-          category: 'plugin'
+          node-version: '20'
+          cache: 'yarn'
+      - run: yarn install --immutable
+      - run: yarn run build
+      - name: HACS validation
+        uses: hacs/action@main
+        with:
+          category: plugin

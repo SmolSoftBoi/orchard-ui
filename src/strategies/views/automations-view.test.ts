@@ -1,9 +1,10 @@
 import { describe, expect, test, vi } from 'vitest';
+import type { Hass } from '../../hass';
 
 vi.mock('@smolpack/hasskit', () => ({
   Home: class {
     floors = [];
-    constructor(_hass: unknown, _config?: unknown) {}
+    constructor() {}
     entitiesWithDomains() { return []; }
   },
 }));
@@ -15,7 +16,7 @@ describe('AutomationsViewStrategy.generate', () => {
   test('returns a view with one automation section', async () => {
     vi.spyOn(AutomationSectionStrategy, 'generate').mockResolvedValue({ type: 'grid', cards: [] });
 
-    const view = await AutomationsViewStrategy.generate({ areas: [] }, {} as any);
+    const view = await AutomationsViewStrategy.generate({ areas: [] }, {} as Hass);
 
     expect(view).toEqual({ badges: [], sections: [{ type: 'grid', cards: [] }] });
   });
