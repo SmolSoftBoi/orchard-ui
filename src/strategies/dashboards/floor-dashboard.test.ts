@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+import type { Hass } from '../../hass';
 import { CUSTOM_ELEMENT_NAME } from '../../config';
 import { FloorDashboardStrategy } from './floor-dashboard';
 
@@ -10,11 +11,14 @@ const hass = {
     a1: { area_id: 'a1', floor_id: 'f1', name: 'Kitchen' },
     a2: { area_id: 'a2', floor_id: 'f1', name: 'Living' },
   },
-} as any;
+} as unknown as Hass;
 
 describe('FloorDashboardStrategy.generate', () => {
   test('returns views for a given floor', async () => {
-    const config = await FloorDashboardStrategy.generate({ floor_id: 'f1' }, hass);
+    const config = await FloorDashboardStrategy.generate(
+      { floor_id: 'f1' },
+      hass
+    );
 
     expect(config).toEqual({
       views: [
@@ -24,19 +28,28 @@ describe('FloorDashboardStrategy.generate', () => {
           path: 'f1',
           icon: 'mdi:home-floor-1',
           max_columns: 2,
-          strategy: { type: `custom:${CUSTOM_ELEMENT_NAME}-floor`, floor_id: 'f1' },
+          strategy: {
+            type: `custom:${CUSTOM_ELEMENT_NAME}-floor`,
+            floor_id: 'f1',
+          },
         },
         {
           type: 'sections',
           title: 'Kitchen',
           path: 'a1',
-          strategy: { type: `custom:${CUSTOM_ELEMENT_NAME}-room`, area_id: 'a1' },
+          strategy: {
+            type: `custom:${CUSTOM_ELEMENT_NAME}-room`,
+            area_id: 'a1',
+          },
         },
         {
           type: 'sections',
           title: 'Living',
           path: 'a2',
-          strategy: { type: `custom:${CUSTOM_ELEMENT_NAME}-room`, area_id: 'a2' },
+          strategy: {
+            type: `custom:${CUSTOM_ELEMENT_NAME}-room`,
+            area_id: 'a2',
+          },
         },
       ],
     });
