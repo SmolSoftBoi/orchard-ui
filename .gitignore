@@ -5,8 +5,8 @@
 
 # Dist
 node_modules
-dist/
-
+# Include built files for HACS validation
+!dist/
 # IDE
 .vscode/*
 # Include the extensions.json file to share VSCode extensions configuration
