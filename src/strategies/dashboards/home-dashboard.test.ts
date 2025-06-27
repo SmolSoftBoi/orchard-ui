@@ -1,5 +1,6 @@
 import { describe, expect, test, vi, beforeEach, afterEach } from 'vitest';
 import { CUSTOM_ELEMENT_NAME } from '../../config';
+import type { Hass } from '../../hass';
 import { AutomationsViewStrategy } from '../views/automations-view';
 import { HomeViewStrategy } from '../views/home-view';
 
@@ -10,7 +11,7 @@ vi.mock('@smolpack/hasskit', () => ({
     lightEntity = { icon: 'mdi:lightbulb' };
     lockEntity = { icon: 'mdi:lock' };
     mediaPlayerEntity = { icon: 'mdi:television' };
-    constructor(_hass: unknown, _config?: unknown) {}
+    constructor() {}
   },
 }));
 
@@ -27,8 +28,8 @@ describe('HomeDashboardStrategy.generate', () => {
   });
 
   test('returns a dashboard config with expected views', async () => {
-    const hass = {} as unknown;
-    const config = await HomeDashboardStrategy.generate({}, hass as any);
+    const hass = {} as Hass;
+    const config = await HomeDashboardStrategy.generate({}, hass);
 
     expect(config).toEqual({
       views: [
