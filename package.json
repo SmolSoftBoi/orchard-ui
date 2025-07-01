@@ -29,7 +29,7 @@
     "@types/node": "^22.15.19",
     "eslint": "^9.30.0",
     "globals": "^15.11.0",
-    "home-assistant-js-websocket": "^9.4.0",
+    "home-assistant-js-websocket": "^9.5.0",
     "lit": "^3.2.1",
     "memoize-one": "^6.0.0",
     "prettier": "^3.6.1",
