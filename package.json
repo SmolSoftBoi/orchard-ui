@@ -27,7 +27,7 @@
     "@smolpack/hasskit": "^1.0.31",
     "@smolpack/prettier-config": "^1.0.5",
     "@types/node": "^24.0.13",
-    "eslint": "^9.31.0",
+    "eslint": "^9.33.0",
     "globals": "^16.3.0",
     "home-assistant-js-websocket": "^9.5.0",
     "lit": "^3.2.1",
