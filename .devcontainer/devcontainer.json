@@ -2,7 +2,7 @@
   "name": "Orchard UI",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
   "features": {
-    "ghcr.io/devcontainers/features/yarn:1": {}
+    "ghcr.io/devcontainers/features/node:1": {}
   },
   "postCreateCommand": "yarn install",
   "customizations": {
