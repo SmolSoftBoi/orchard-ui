@@ -484,7 +484,7 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.53.3.tgz#38ae84f4c04226c1d56a3b17296ef1e0460ecdfe"
   integrity sha512-UhTd8u31dXadv0MopwGgNOBpUVROFKWVQgAg5N1ESyCz8AuBcMqm4AuTjrwgQKGDfoFuz02EuMRHQIw/frmYKQ==
 
-"@rsbuild/core@~1.7.0":
+"@rsbuild/core@1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@rsbuild/core/-/core-1.7.1.tgz#94ffae81f7b26f1848209983962eaadab0e93b92"
   integrity sha512-ULIE/Qh+Ne80Pm/aUPbRHUvwvIzpap07jYNFB47azI8w5Q3sDEC4Gn574jsluT/42iNDsZTFADRBog9FEvtN9Q==
@@ -495,13 +495,13 @@
     core-js "~3.47.0"
     jiti "^2.6.1"
 
-"@rslib/core@^0.19.1":
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/@rslib/core/-/core-0.19.1.tgz#3910ffef9851f5a4468483b821adae3ec12cafd3"
-  integrity sha512-Fz+uknjf9BRE6tNax7zcZOZ8FX3FLT5kKcR10vHdo6IgCaMZpJxQmM62NNfv21kdy5u1PdIRgKFVpqP2QTarfg==
+"@rslib/core@^0.19.2":
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/@rslib/core/-/core-0.19.2.tgz#4c65d9df6ce8bd0ce1d4f3b39e6f66112b863562"
+  integrity sha512-eoRR1tQqkEiq3ijBT170KpxnBM7nf3/sanAUoJhyCeyLKKkGpQW6nr1cKHfZmkEizqSvLyjvLFA7fdIfK7pCMw==
   dependencies:
-    "@rsbuild/core" "~1.7.0"
-    rsbuild-plugin-dts "0.19.1"
+    "@rsbuild/core" "1.7.1"
+    rsbuild-plugin-dts "0.19.2"
 
 "@rspack/binding-darwin-arm64@1.7.0":
   version "1.7.0"
@@ -1434,10 +1434,10 @@ rollup@^4.43.0:
     "@rollup/rollup-win32-x64-msvc" "4.53.3"
     fsevents "~2.3.2"
 
-rsbuild-plugin-dts@0.19.1:
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/rsbuild-plugin-dts/-/rsbuild-plugin-dts-0.19.1.tgz#f47063b57f0f33e680c9e245128bb08e8a80b417"
-  integrity sha512-LaK1RAvHPrb/ulfwvZckeui5qkQSKxf1RD7rzBTgK2UY8fMTQgsxsvun/XzfzAOKqdagzIohhnmNd5+j2Niqww==
+rsbuild-plugin-dts@0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/rsbuild-plugin-dts/-/rsbuild-plugin-dts-0.19.2.tgz#ae7475a3112692f0bd1628c82769605b04d5d2d7"
+  integrity sha512-neuTRt+H/isd2FDYMigF5TEoLUoR/hF0RKdVv1U7nDz0CfLRUfL+NnxePv9nS7dU2VvM3CYcLH7tZs43ol7g4Q==
   dependencies:
     "@ast-grep/napi" "0.37.0"
 
